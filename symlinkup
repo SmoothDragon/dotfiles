@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+'''Linkdown creates symlinks one level up the directory tree.
+Normal mode:
+If the symlink target exists and is a symlink or empty directory,
+the target is deleted.
+If the symlink target exists and is a file or nonempty directory,
+the target is moved to "target.[timestamp]".
+
+Undo mode:
+Target symlinks are calcuted from local directory.
+If target symlinks exist, they are removed, otherwise no action.
+If a symlink is removed, the most recent target.[timestamp] will
+be moved back to the original target.
+'''
+
+import argparse
+import os
+
+parser = argparse.ArgumentParser(
+    description='Creates a symlink one level down to everything \
+            in this directory.')
+parser.add_argument('-u', '--undo', action='store_true', default=False)
+# Maybe add an option for forcefully doing everything. Dangerous.
+# parser.add_argument('-f','--force',action='store_true',default=False)
+parse_vars = parser.parse_args()
+
+sourceDir = os.getcwd()
+(targetDir, dirName) = os.path.split(sourceDir)  # One dir level up
+targetDirItems = set(os.listdir(targetDir))
+
+if not parse_vars.undo:
+    # Default behavior to add symlinks
+    for sourceItem in os.listdir(sourceDir):
+        sourceItemFull = os.path.join(sourceDir, sourceItem)
+        targetItemFull = os.path.join(targetDir, sourceItem)
+        if sourceItem in targetDirItems:
+            if os.path.islink(targetItemFull):
+                # Remove if target is symlink
+                os.remove(targetItemFull)
+            elif os.path.isdir(targetItemFull):
+                if os.listdir(targetItemFull):
+                    # Rename to timestamped backup if nonempty
+                    print('Dir not empty. Skipping', sourceItem)
+                    continue
+                else:
+                    # Remove if target is empty directory
+                    os.rmdir(targetItemFull)
+            elif os.path.isfile(targetItemFull):
+                # Rename to timestamped backup if nonempty
+                print('File exists. Skipping', sourceItem)
+                continue
+            else:
+                print('Handle not identified. Skipping', sourceItem)
+                continue
+        os.symlink(sourceItemFull, targetItemFull)
+else:
+    # Remove all symlinks that would be created
+    for sourceItem in os.listdir(sourceDir):
+        targetItemFull = os.path.join(targetDir, sourceItem)
+        if sourceItem in targetDirItems:
+            if os.path.islink(targetItemFull):
+                os.remove(targetItemFull)
