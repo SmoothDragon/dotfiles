@@ -1,0 +1,4 @@
+# SAGE
+export SAGE_PATH=/opt/sage
+export LD_LIBRARY_PATH=$SAGE_PATH/local/lib:
+export PATH=${SAGE_PATH}/local/bin:$PATH
