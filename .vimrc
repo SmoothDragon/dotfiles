@@ -67,7 +67,7 @@ set hlsearch                    " Highlight search (C-l to hide)
 set incsearch                   " Perform incremental search
 " Movement
 set nostartofline               " Don't always jump to start of line
-set mouse=a                     " Enable use of mouse for all modes
+" set mouse=a                     " Enable use of mouse for all modes
 set scrolloff=5                 " Leave 5 visible lines above/below cursor
 " Information
 set hidden                      " Allows undo history for multiple files

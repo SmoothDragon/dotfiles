@@ -1,0 +1,14 @@
+update.py will automatically install useful packages
+
+Future vim packages to consider:
+auctex.vim
+future
+headlight
+python-mode
+python-syntax
+simple_pairs.vim
+syntastic
+vim-cute-python
+vim-flake8
+VimPdb.py
+VimPdb.vim
