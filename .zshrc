@@ -1,49 +1,27 @@
-umask 022 ## Others can't w my files
-    
+# Local settings {{{
+GROUP=`id -g -n`
+[[ -f ~/.zshrc.$GROUP ]] && . ~/.zshrc.$GROUP
+# }}}
+# Global settings {{{
+umask 027 ## Others can't w my files
+# }}}    
+# Environment {{{
 # Export
-export HISTSIZE=8192
+export HISTSIZE=65536
+export HISTFILESIZE=1048576
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 #export TERM=vt100
-#export PATH=~/opt/bin:~/opt/usr/bin:~/opt/local/bin:~/opt/sbin:/bin:/usr/bin:/usr/local/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin:/opt/bin
-export PATH=~/local/bin:~/opt/bin:~/bin:~/sbin:/bin:/usr/bin:/usr/local/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin:/opt/bin
+export PATH=~/bin:~/local/bin:~/.local/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
 #export CDPATH=.:~:.. ## on cd command offer dirs in home and one dir up
 
 # Programming    
 export CPATH=~/include:~/local/include: # additional include directories
 export LIBRARY_PATH=~/lib:~/local/lib: # additional library directories
 export TEXINPUTS=~/lib/tex//: # // searches subdirectories : includes defaults
-export PYTHONPATH=$PYTHONPATH:$HOME/include/python:$HOME/lib/python:
-# export EDITOR="emacs -nw"
 export EDITOR=vim
-
-# Alias    
-#unalias -a # Remove all previous aliases
-alias ducks='du -cks * | sort -rn | head -11'
-alias dud="du -s * | sort -n | cut -f 2- | while read a; do du -hs |$a|; done"
-alias ND='ls -ld *(/om[1])' # Show newest directory
-alias NF='ls *(.om[1])'     # print newest file (not directory)
-alias OF='ls *(om[1])'      # print oldest file
-alias newest='ls -lt **/*(D.om[1,30])'
-alias oldest='ls -lt **/*(D.Om[1,30])'
-alias ls='ls --color=auto'
-alias lsp='ls --color | less -R'
-alias la='ls -al --color=auto'
-alias lap='ls -al --color | less -R'
-alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
-alias python=python3.4
-alias ipython=ipython3.4
-
-# Functions
-backup() { cp $1 $1.`date +%Y%m%d_%H%M%S`; } # Make timestamped backup 
-    
-# Suffix alias - run exec on files ending with suffix
-alias -s html=w3m
-alias -s dvi=xdvi
-alias -s pdf=acroread    
-
-#Zsh options`date +%Y%m%d_%H%M%S`
-
+# }}}
+#Zsh options`date +%Y%m%d_%H%M%S` {{{
 autoload -U compinit
 compinit
     
@@ -83,30 +61,59 @@ zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
 zstyle ':completion:*' group-name ''    
 
+# }}}
+# Alias {{{
+#unalias -a # Remove all previous aliases
+alias ducks='du -cks -- * | sort -rn | head -11'
+alias dud="du -s -- * | sort -n | cut -f 2- | while read a; do du -hs |$a|; done"
+alias ND='ls -ld *(/om[1])' # Show newest directory
+alias NF='ls *(.om[1])'     # print newest file (not directory)
+alias OF='ls *(om[1])'      # print oldest file
+alias newest='ls -lt **/*(D.om[1,30])'
+alias oldest='ls -lt **/*(D.Om[1,30])'
+alias ls='ls --color=auto'
+alias lsp='ls --color | less -R'
+alias la='ls -al --color=auto'
+alias lap='ls -al --color | less -R'
+alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+alias gitlog='git log --pretty=oneline'
+
+# Recommended to wrap tmux to avoid issues with environment loading
+alias tmux='direnv exec / tmux'
+
+# }}}
+# Discipline Aliases {{{
+alias which='echo "Try: type -a"'
+alias more='echo "Try: less"'
+
+# Functions
+backup() { cp $1 $1.`date +%Y%m%d_%H%M%S`; } # Make timestamped backup 
     
-#compctl -/g '*.{^(?:[^a]|a(?!ux))*$}' emacs
-#compctl -/g '*.(tex|aux)' emacs
-#compctl -/g '*.^(aux|dvi|lof|log|lot|blg|bbl|ps|pdf|toc)*' emacs # Don't complete certain file types
-compctl -/g '*.pdf' + -/g '*(-/)' kpdf xpdf
-compctl -/g '*.dvi' + -/g '*(-/)' kdvi xdvi
-    
-# my zsh functions    
-#export FPATH=~/share/zsh/functions:$FPATH
-#autoload -U ~/share/zsh/functions/*(:t)
 
-# reload zsh functions
-r() {
-  local f
-  f=(~/share/zsh/function/*(.))
-  unfunction $f:t 2> /dev/null
-  autoload -U $f:t
-}
+# Suffix alias - run exec on files ending with suffix
+alias -s html=w3m
+alias -s dvi=xdvi
+alias -s pdf=acroread    
 
+alias gitk='gitk --all'
+# If vimx exists and vim is not compiled with +xterm_clipboard, use vimx.
+[[ -e /usr/bin/vimx ]] && /usr/bin/vim --version | grep -q -- -xterm_clipboard && alias vim='/usr/bin/vimx'
+# }}}
+# Key binding {{{
+# Use vi-mode in ZSH
+# bindkey -v
 
-##################################################################
-# Git sytled prompt
-##################################################################
+# bindkey '' up-history
+# bindkey '' down-history
+# bindkey '' backward-delete-char
+# bindkey '' backward-delete-char
+# bindkey '' backward-kill-word
+# bindkey '' history-incremental-search-backward
 
+# Map alternate escape key to 'jj'
+# bindkey -M viins 'jj' vi-cmd-mode
+# }}}
+# Git prompt {{{
 setopt prompt_subst
 function __prompt_git()
 {
@@ -118,7 +125,7 @@ function __prompt_git()
                   && top="/$top"
                   echo "[$br$top]"
 }
-export PS1='[%?]%{$fg[green]%}%n%{$reset_color%}@%m:%~\$ '
+export PS1='($CONTEXT)[%?]%{$fg[green]%}%n%{$reset_color%}@%m:%~\$ '
 #export RPS1='%{$fg[yellow]%}$(__prompt_git) %{$reset_color%}%*'
 #export RPS1='%{$fg[yellow]%}${vcs_info_msg_0_} %{$reset_color%}%*'
 if [[ "$USER" == "root" ]] ; then
@@ -194,17 +201,39 @@ git_prompt_string() {
 # Set the right-hand prompt
 RPS1='$(git_prompt_string)'
 
-    
-##################################################################
-# LOCAL OPTIONS
-##################################################################
-    
+# }}}    
+
+# Hook for direnv
+eval "$(direnv hook zsh)"
+
+# Local options {{{
 if [ -f ~/.zshrc.local ];
 then
-    . ~/.zshrc.local    
+  . ~/.zshrc.local
 fi
+# }}}
 
-export SAGE_PATH=/opt/sage
-export LD_LIBRARY_PATH=$SAGE_PATH/local/lib:
 
+# Unused {{{
 #export PATH=${SAGE_PATH}/local/bin:$PATH
+    
+#compctl -/g '*.{^(?:[^a]|a(?!ux))*$}' emacs
+#compctl -/g '*.(tex|aux)' emacs
+#compctl -/g '*.^(aux|dvi|lof|log|lot|blg|bbl|ps|pdf|toc)*' emacs # Don't complete certain file types
+# compctl -/g '*.pdf' + -/g '*(-/)' kpdf xpdf
+# compctl -/g '*.dvi' + -/g '*(-/)' kdvi xdvi
+    
+# my zsh functions    
+#export FPATH=~/share/zsh/functions:$FPATH
+#autoload -U ~/share/zsh/functions/*(:t)
+
+# reload zsh functions
+# r() {
+  # local f
+  # f=(~/share/zsh/function/*(.))
+  # unfunction $f:t 2> /dev/null
+  # autoload -U $f:t
+# }
+
+# }}}
+
