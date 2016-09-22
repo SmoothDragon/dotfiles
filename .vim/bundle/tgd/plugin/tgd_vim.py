@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-# import vim
+
+from __future__ import print_function
+
 if __name__ != '__main__':
     # Allow doctests to run when not loaded by vim
-    import vim 
+    import vim
 # print(__name__)
 
 import datetime

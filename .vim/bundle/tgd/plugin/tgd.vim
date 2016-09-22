@@ -8,8 +8,8 @@ if exists('g:loaded_tgd') || &cp
 endif
 let g:loaded_tgd = 1
 
-py3file tgd_vim.py
-" execute "py3file ".fnameescape(fnamemodify(expand("<sfile>"), ":h")."/tgd_vim.py")  
+" py3file tgd_vim.py
+execute "py3file ".fnameescape(fnamemodify(expand("<sfile>"), ":h")."/tgd_vim.py")  
 
 " function AnagramCursorWord()
 " python << EOF
