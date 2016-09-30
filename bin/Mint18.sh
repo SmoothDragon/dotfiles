@@ -3,12 +3,12 @@
 # Install proprietary nvidia driver in Settings 
 
 TERMINAL="direnv tmux vim zsh"
-DOCS="zsh-doc"
-PYTHON="python-requests"
-PYTHON3="python3-requests"
-PROG="git gitk"
+DOCS="kdiff3-doc zsh-doc"
+PYTHON="ipython python-bottle python-daemon python-future python-numpy python-requests python-pip python-setuptools"
+PYTHON3="ipython3 python3-bottle python3-daemon python3-future python3-numpy python3-requests python3-pip python3-setuptools"
+PROG="git gitk kdiff3"
 SERVER="openssh-server"
-USER="chromium-browser pidgin"
+USER="chromium-browser gedit pidgin"
 
 sudo apt install ${TERMINAL} ${DOCS} ${PYTHON} ${PYTHON3} ${PROG} ${SERVER} ${USER}
 
