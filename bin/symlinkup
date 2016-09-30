@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 '''Linkdown creates symlinks one level up the directory tree.
 Normal mode:
 If the symlink target exists and is a symlink or empty directory,
