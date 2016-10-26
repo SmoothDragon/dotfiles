@@ -143,6 +143,14 @@ augroup filetype_make
   autocmd FileType make setlocal shiftwidth=8
 augroup END
 " }}}
+" SimpyFold plugin settings--------------{{{
+augroup filetype_simpyfold
+  autocmd!
+  let g:SimpylFold_docstring_preview = 1
+  " Foldable text documents
+  au BufEnter *.fold set ai sw=2 ts=2 | set expandtab | set foldmethod=indent | set smartindent
+augroup END
+" }}}
 " Python file settings--------------{{{
 augroup filetype_python
   autocmd!
@@ -162,6 +170,9 @@ augroup filetype_python
   autocmd FileType python setlocal  efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
   " autocmd FileType python nnoremap <F5> :!python %<CR>
   " syntax match spacehiTab /\t/ highlight spacehiTab ctermfg=1 cterm=underline
+  " autocmd FileType python setlocal foldmethod=syntax
+  " autocmd FileType python syn sync fromstart
+  " autocmd FileType python syn region  pythonFunctionFostart="^\z(\s*\)\%(def\|class\) " skip="^\s*$" end="^\ze\%(\z1\s\)\@!." fold transparent
 augroup END
 " }}}
 " reST file settings--------------{{{
@@ -225,14 +236,6 @@ augroup END
 augroup filetype_git
   autocmd!
   autocmd FileType gitcommit setlocal spell
-augroup END
-" }}}
-" SimpyFold plugin settings--------------{{{
-augroup filetype_simpyfold
-  autocmd!
-  let g:SimpylFold_docstring_preview = 1
-  " Foldable text documents
-  au BufEnter *.fold set ai sw=2 ts=2 | set expandtab | set foldmethod=indent | set smartindent
 augroup END
 " }}}
 " Slimux plugin settings--------------{{{
