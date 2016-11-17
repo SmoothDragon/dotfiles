@@ -204,7 +204,7 @@ RPS1='$(git_prompt_string)'
 # }}}    
 
 # Hook for direnv
-if [ hash direnv 2>/dev/null ];
+if [ command -v direnv >/dev/null 2>&1 ];
 then
   eval "$(direnv hook zsh)"
 fi
