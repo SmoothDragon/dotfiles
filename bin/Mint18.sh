@@ -9,7 +9,7 @@ PYTHON="ipython python-bottle python-coverage python-daemon python-flask python-
 PYTHON3="ipython3 python3-bottle python3-coverage python3-daemon python3-flask python3-future python3-numpy python3-requests python3-pip python3-setuptools"
 PROG="git gitk kdiff3 tox"
 SERVER="iperf openssh-server"
-USER="chromium-browser gedit pidgin"
+USER="chromium-browser eog gedit pidgin"
 
 sudo apt install ${TERMINAL} ${DOCS} ${PYTHON} ${PYTHON3} ${PROG} ${SERVER} ${USER}
 
