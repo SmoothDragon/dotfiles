@@ -4,7 +4,7 @@
 
 TERMINAL="direnv tmux vim zsh"
 DOCS="zsh-doc"
-PYTHON="python-requests"
+PYTHON="ipython python-bottle python-daemon python-future python-numpy python-requests python-pip python-setuptools"
 PYTHON3="python34"
 # PROG="git gitk"
 # SERVER="openssh-server"
