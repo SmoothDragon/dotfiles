@@ -4,13 +4,14 @@
 
 TERMINAL="direnv tmux vim zsh"
 DOCS="zsh-doc"
-PYTHON="ipython python-bottle python-daemon python-future python-numpy python-requests python-pip python-setuptools"
-PYTHON3="python34"
+PYTHON="python-daemon"
+PYTHON2="ipython numpy python-bottle python2-eventlet python-future python-pandas python-pip python-requests python-setuptools"
+PYTHON3="python34 python34-bottle python34-numpy python34-pip python34-requests python34-setuptools"
 # PROG="git gitk"
 # SERVER="openssh-server"
 # USER="chromium-browser pidgin"
 
-sudo yum install ${TERMINAL} ${DOCS} ${PYTHON} ${PYTHON3} ${PROG} ${SERVER} ${USER}
+sudo yum install ${TERMINAL} ${DOCS} ${PYTHON} ${PYTHON2} ${PYTHON3} ${PROG} ${SERVER} ${USER}
 
 # Manual setup
 # Sign into gmail
