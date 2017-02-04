@@ -9,8 +9,8 @@ GRAPHIC="inkscape"
 PYTHON="ipython python-bottle python-coverage python-daemon python-flask python-future python-matplotlib python-numpy python-pandas python-requests python-pip python-scipy python-setuptools python-tk"
 PYTHON3="ipython3 python3-bottle python3-coverage python3-daemon python3-flask python3-future python3-matplotlib python3-numpy python3-requests python3-pip python3-setuptools python3-tk"
 PROG="git gitk kdiff3 sqlite3 tox"
-SERVER="iperf openssh-server"
-DATABASE="sqlitebrowser"
+SERVER="iperf openssh-server openvpn"
+DATABASE="sqlitebrowser libsqlite3-dev"
 USER="chromium-browser eog gedit pidgin"
 
 sudo apt install ${TERMINAL} ${TYPESCRIPT} ${DOCS} ${PYTHON} ${PYTHON3} ${PROG} ${SERVER} ${USER} ${GRAPHIC} ${DATABASE}
