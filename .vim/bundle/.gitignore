@@ -2,6 +2,7 @@ ale
 SimpylFold
 slimux
 vim-colors-solarized
+vim-flake8
 vim-fugitive
 vim-minizinc
 vim-pathogen
@@ -10,3 +11,4 @@ vim-sensible
 vim-speeddating
 vim-surround
 vim-unimpaired
+

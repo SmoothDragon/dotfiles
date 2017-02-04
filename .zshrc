@@ -144,6 +144,7 @@ GIT_PROMPT_SUFFIX="%{$fg[green]%}]%{$reset_color%}"
 GIT_PROMPT_AHEAD="%{$fg[red]%}ANUM%{$reset_color%}"
 GIT_PROMPT_BEHIND="%{$fg[cyan]%}BNUM%{$reset_color%}"
 GIT_PROMPT_MERGING="%{$fg_bold[magenta]%}⚡︎%{$reset_color%}"
+# use Unicode 2B2E for vertival oval
 GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}⬮%{$reset_color%}"
 GIT_PROMPT_MODIFIED="%{$fg_bold[yellow]%}⬮%{$reset_color%}"
 GIT_PROMPT_STAGED="%{$fg_bold[green]%}⬮%{$reset_color%}"
@@ -204,7 +205,9 @@ RPS1='$(git_prompt_string)'
 # }}}    
 
 # Hook for direnv
-eval "$(direnv hook zsh)"
+if type "direnv" &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
 
 # Local options {{{
 if [ -f ~/.zshrc.local ];
