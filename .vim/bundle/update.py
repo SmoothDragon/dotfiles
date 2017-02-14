@@ -10,18 +10,18 @@ Site = [
         'https://github.com/tpope/vim-pathogen',
         'https://github.com/tpope/vim-sensible',
         'https://github.com/tmhedberg/SimpylFold',
-        'https://github.com/epeli/slimux.git',
+        'https://github.com/epeli/slimux',
         'https://github.com/tpope/vim-surround',
         'https://github.com/tpope/vim-unimpaired',
+        'https://github.com/w0rp/ale',
         ]
 
-# subprocess.call('mkdir -p github && cd github', shell=True)
 for site in Site:
     url = urllib.parse.urlparse(site)
     path = url.path
     name = os.path.split(path)[-1]
     if os.path.isdir(name):
         print(name)
-        subprocess.call('(cd %s && git pull)'%name, shell=True)
+        subprocess.call('(cd %s && git pull)' % name, shell=True)
     else:
         subprocess.call('git clone '+site, shell=True)
