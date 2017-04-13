@@ -31,6 +31,8 @@ targetDirItems = set(os.listdir(targetDir))
 if not parse_vars.undo:
     # Default behavior to add symlinks
     for sourceItem in os.listdir(sourceDir):
+        if sourceItem in ['.gitignore', '.git']:
+            continue  # ignore repo files
         sourceItemFull = os.path.join(sourceDir, sourceItem)
         targetItemFull = os.path.join(targetDir, sourceItem)
         if sourceItem in targetDirItems:
