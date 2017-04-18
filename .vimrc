@@ -264,7 +264,7 @@ augroup comment_toggle
   autocmd FileType python,ruby,sh,make    let b:comment = '# '
   autocmd FileType vim                    let b:comment = '" '
   autocmd FileType tex,zinc,matlab        let b:comment = '% '
-  autocmd FileType c,cpp,java             let b:comment = '\/\/ '
+  autocmd FileType c,cpp,java,openscad    let b:comment = '\/\/ '
   autocmd FileType haskell                let b:comment = '-- '
   function! CommentToggle()
     if exists("b:comment")
