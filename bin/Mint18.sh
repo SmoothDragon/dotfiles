@@ -3,7 +3,7 @@
 # Install proprietary nvidia driver in Settings 
 
 TERMINAL="direnv mmv moreutils tmux vim virtualenv virtualenvwrapper zsh"
-TYPESCRIPT="enscript rst2pdf sphinx-common texlive-full"
+TYPESCRIPT="enscript pdftk rst2pdf sphinx-common texlive-full"
 DOCS="kdiff3-doc sqlite3-doc zsh-doc"
 GRAPHIC="inkscape"
 PYTHON="ipython python-bottle python-coverage python-daemon python-eventlet python-flask python-future python-jsonschema python-matplotlib python-nine python-numpy python-pandas python-requests python-pip python-scipy python-setuptools python-tk"
