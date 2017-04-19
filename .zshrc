@@ -244,6 +244,7 @@ fi
 # the following to ~/.zshrc:
 
 export PATH="/home/tom/.pyenv/bin:$PATH"
+if (( $+commands[pyenv] )) ; then
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
@@ -254,3 +255,4 @@ show_virtual_env() {
 }
 
 PS1='$(show_virtual_env)'$PS1
+fi
