@@ -2,8 +2,8 @@
 
 # Install proprietary nvidia driver in Settings 
 
-TERMINAL="direnv mmv moreutils tmux vim virtualenv virtualenvwrapper zsh"
-TYPESCRIPT="enscript pdftk rst2pdf sphinx-common texlive-full wkhtmltopdf"
+TERMINAL="direnv mmv moreutils tmux vim-gtk virtualenv virtualenvwrapper zsh"
+TYPESCRIPT="biber enscript pdftk rst2pdf sphinx-common texlive-full wkhtmltopdf"
 DOCS="kdiff3-doc sqlite3-doc zsh-doc"
 GRAPHIC="graphviz inkscape"
 EVERNOTE="libcurl3 tidy"

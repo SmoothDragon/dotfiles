@@ -15,6 +15,7 @@ Site = [
         'https://github.com/tpope/vim-unimpaired',
         'https://github.com/w0rp/ale',
         'https://github.com/sirtaj/vim-openscad.git',
+        'https://github.com/freitass/todo.txt-vim.git',
         ]
 
 for site in Site:
