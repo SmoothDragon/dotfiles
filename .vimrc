@@ -9,7 +9,8 @@ let g:pymode_python = 'python3'
 " VIM CUSTOMIZATION -----------------{{{
 " Change mapleader from \ to ,
 let mapleader = ","
-let maplocalleader = "\\"
+" Change localleader to <Space>
+let maplocalleader = "\<Space>"
 nnoremap <leader>v :vsplit $MYVIMRC<cr> " edit my .vimrc file in a vertical split
 nnoremap <leader>s :split $MYVIMRC<cr>  " edit my .vimrc file in a split
 nnoremap <leader>e :edit $MYVIMRC<cr>   " edit my .vimrc file
@@ -78,7 +79,7 @@ set visualbell                  " Use visual bell instead of beeping
 set cmdheight=2                 " Set command window height to 2 lines
 " Files
 set autochdir                   " Change working directory to open file
-set clipboard=unnamedplus       " Vim copy/paste to system clipboard (register "+)
+set clipboard=unnamedplus       " Copy/paste to system clipboard (requires vim-gtk)
 " }}}
 " Discipline coding settings-----------{{{
 " inoremap <up>    <nop>
