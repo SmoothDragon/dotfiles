@@ -26,3 +26,8 @@ Get different python module working for a directory:
     use python 3.6.1
   pip3 install ipython   # Get ipython to be same version
 
+
+Direnv
+git clone into directory
+ln -s ~/dotfiles/direnv/vendor/github.com ~/dotfiles/go/src
+linkup should link "go" directory in home
