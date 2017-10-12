@@ -78,6 +78,7 @@ set confirm                     " Ask to save instead of aborting
 set visualbell                  " Use visual bell instead of beeping
 set cmdheight=2                 " Set command window height to 2 lines
 " Files
+set modelines=5                 " Allow Vim to readfile for settings
 set autochdir                   " Change working directory to open file
 set clipboard=unnamedplus       " Copy/paste to system clipboard (requires vim-gtk)
 " }}}
@@ -265,7 +266,7 @@ augroup comment_toggle
   autocmd FileType python,ruby,sh,make    let b:comment = '# '
   autocmd FileType vim                    let b:comment = '" '
   autocmd FileType tex,zinc,matlab        let b:comment = '% '
-  autocmd FileType c,cpp,java,openscad    let b:comment = '\/\/ '
+  autocmd FileType c,cpp,java,openscad,javascript,gv let b:comment = '\/\/ '
   autocmd FileType haskell                let b:comment = '-- '
   function! CommentToggle()
     if exists("b:comment")

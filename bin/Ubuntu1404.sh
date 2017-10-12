@@ -36,7 +36,7 @@ DEPTH=$(($DEPTH-1)); if [ $DEPTH -eq 0 ]; then exit 0; fi; echo $DEPTH
 # TYPESCRIPT options
 pdf="evince pdfcrack pdfjam pdftk xpdf"
 postscript="enscript gv"
-tex="auctex cm-super chktex latex-beamer latex-xcolor lilypond lilypond-doc prosper scribus scribus-template texlive texlive-doc-en texlive-generic-extra texlive-latex-base texlive-latex-recommended texlive-fonts-extra texlive-fonts-extra-doc texlive-pictures texlive-pictures-doc texlive-fonts-extra" # xft fontconfig
+tex="auctex biber cm-super chktex latex-beamer latex-xcolor lilypond lilypond-doc prosper scribus scribus-template texlive texlive-full texlive-doc-en texlive-generic-extra texlive-latex-base texlive-latex-recommended texlive-fonts-extra texlive-fonts-extra-doc texlive-pictures texlive-pictures-doc texlive-fonts-extra" # xft fontconfig
 TYPESCRIPT="$fonts $pdf $postscript $tex"
 echo "--------------------"
 echo TYPESCRIPT
@@ -164,5 +164,5 @@ sudo chmod -x /etc/cron.daily/mlocate # Turn off updatedb.mlocate
 # sudo chmod +x /etc/cron.daily/mlocate # Turn it back on
 
 # Python Package manager (pip) from PyPI
-sudo pip install flake8
+# sudo pip install flake8
 
