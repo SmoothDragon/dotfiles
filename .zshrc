@@ -78,8 +78,6 @@ alias lap='ls -al --color | less -R'
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 alias gitlog='git log --pretty=oneline'
 
-# Recommended to wrap tmux to avoid issues with environment loading
-alias tmux='direnv exec / tmux'
 
 # }}}
 # Discipline Aliases {{{
@@ -207,6 +205,8 @@ RPS1='$(git_prompt_string)'
 # Hook for direnv
 if type "direnv" &> /dev/null; then
   eval "$(direnv hook zsh)"
+  # Recommended to wrap tmux to avoid issues with environment loading
+  alias tmux='direnv exec / tmux'
 fi
 
 # Local options {{{
@@ -240,14 +240,6 @@ fi
 
 # }}}
 
-# Load pyenv automatically by adding
-# the following to ~/.zshrc:
-
-export PATH="/home/tom/.pyenv/bin:$PATH"
-if (( $+commands[pyenv] )) ; then
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 show_virtual_env() {
   if [ -n "$VIRTUAL_ENV" ]; then
     echo "($(basename $VIRTUAL_ENV))"
@@ -255,4 +247,3 @@ show_virtual_env() {
 }
 
 PS1='$(show_virtual_env)'$PS1
-fi
