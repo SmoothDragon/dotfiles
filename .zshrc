@@ -1,18 +1,22 @@
 # Local settings {{{
 GROUP=`id -g -n`
+LOCATION=`grep search /etc/resolv.conf | gawk '{print $2}' | gawk -F . '{print $1}'`
 [[ -f ~/.zshrc.$GROUP ]] && . ~/.zshrc.$GROUP
+[[ -f ~/.zshrc.$LOCATION ]] && . ~/.zshrc.$LOCATION
+
 # }}}
 # Global settings {{{
 umask 027 ## Others can't w my files
 # }}}    
 # Environment {{{
 # Export
+export ZSH_THEME="3den"
 export HISTSIZE=65536
 export HISTFILESIZE=1048576
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 #export TERM=vt100
-export PATH=~/bin:~/local/bin:~/.local/bin:~/opt/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
+export PATH=~/bin:~/local/bin:~/.local/bin:~/opt/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin:
 #export CDPATH=.:~:.. ## on cd command offer dirs in home and one dir up
 
 # Programming    
@@ -77,6 +81,7 @@ alias la='ls -al --color=auto'
 alias lap='ls -al --color | less -R'
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 alias gitlog='git log --pretty=oneline'
+alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
 
 
 # }}}
