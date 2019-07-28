@@ -6,20 +6,23 @@ GROUP=`id -g -n`
 umask 027 ## Others can't w my files
 # }}}    
 # Environment {{{
+# Hostnames
+export HOSTALIASES=~/.ssh/hosts
 # Export
 export HISTSIZE=65536
 export HISTFILESIZE=1048576
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 #export TERM=vt100
-export PATH=~/bin:~/local/bin:~/.local/bin:~/opt/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
+export PATH=~/bin:~/local/bin:~/.local/bin:~/opt/bin:~/go/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
 #export CDPATH=.:~:.. ## on cd command offer dirs in home and one dir up
 
-# Programming    
+# Programming    {{{
 export CPATH=~/include:~/local/include: # additional include directories
 export LIBRARY_PATH=~/lib:~/local/lib: # additional library directories
 export TEXINPUTS=~/lib/tex//: # // searches subdirectories : includes defaults
 export EDITOR=vim
+export GOPATH=$HOME/go
 # }}}
 #Zsh options`date +%Y%m%d_%H%M%S` {{{
 autoload -U compinit
@@ -123,7 +126,7 @@ function __prompt_git()
                   && top="/$top"
                   echo "[$br$top]"
 }
-export PS1='($CONTEXT)[%?]%{$fg[green]%}%n%{$reset_color%}@%m:%~\$ '
+export PS1='[%?]%{$fg[green]%}%n%{$reset_color%}@%m:%~\$ '
 #export RPS1='%{$fg[yellow]%}$(__prompt_git) %{$reset_color%}%*'
 #export RPS1='%{$fg[yellow]%}${vcs_info_msg_0_} %{$reset_color%}%*'
 if [[ "$USER" == "root" ]] ; then
@@ -246,4 +249,6 @@ show_virtual_env() {
   fi
 }
 
+# pyenv is deprecating their prompt mangling
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 PS1='$(show_virtual_env)'$PS1
