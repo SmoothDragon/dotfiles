@@ -270,12 +270,12 @@ augroup comment_toggle
   autocmd FileType haskell                let b:comment = '-- '
   function! CommentToggle()
     if exists("b:comment")
-      let a:comment = b:comment
+      let comment = b:comment
     else
-      let a:comment = '# '
+      let comment = '# '
     endif
-    execute ':silent! s/\([^ ]\)/' . a:comment . '\1/'
-    execute ':silent! s/^\( *\)' . a:comment . a:comment .'/\1/'
+    execute ':silent! s/\([^ ]\)/' . comment . '\1/'
+    execute ':silent! s/^\( *\)' . comment . comment .'/\1/'
   endfunction
 
   " Add and remove line comments
