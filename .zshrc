@@ -85,6 +85,7 @@ alias lap='ls -al --color | less -R'
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 alias gitlog='git log --pretty=oneline'
 alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
+alias top='top -c'
 
 
 # }}}
