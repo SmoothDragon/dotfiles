@@ -279,8 +279,7 @@ augroup comment_toggle
   endfunction
 
   " Add and remove line comments
-  nnoremap <F7> :call CommentToggle()<CR>j
-  imap <F7> <c-o><F7>
+  nnoremap <SPACE> :call CommentToggle()<CR>j
   nnoremap <leader>c :call CommentToggle()<CR>j
 augroup END
 " }}}
