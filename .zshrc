@@ -76,8 +76,6 @@ alias dud="du -s -- * | sort -n | cut -f 2- | while read a; do du -hs |$a|; done
 alias ND='ls -ld *(/om[1])' # Show newest directory
 alias NF='ls *(.om[1])'     # print newest file (not directory)
 alias OF='ls *(om[1])'      # print oldest file
-alias newest='ls -lt **/*(D.om[1,30])'
-alias oldest='ls -lt **/*(D.Om[1,30])'
 alias ls='ls --color=auto'
 alias lsp='ls --color | less -R'
 alias la='ls -al --color=auto'
@@ -87,6 +85,8 @@ alias gitlog='git log --pretty=oneline'
 alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
 alias top='top -c'
 
+function newest() { ls -lt **/*(D.om[1,${1:-30}]) ;}  # Optional arg default 30
+function oldest() { ls -lt **/*(D.Om[1,${1:-30}]) ;}  # Optional arg default 30
 
 # }}}
 # Discipline Aliases {{{
