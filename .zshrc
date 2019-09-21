@@ -4,6 +4,8 @@ LOCATION=`grep search /etc/resolv.conf | gawk '{print $2}' | gawk -F . '{print $
 [[ -f ~/.zshrc.$GROUP ]] && . ~/.zshrc.$GROUP
 [[ -f ~/.zshrc.$LOCATION ]] && . ~/.zshrc.$LOCATION
 
+echo "Group: $GROUP    Location: $LOCATION"
+
 # }}}
 # Global settings {{{
 umask 027 ## Others can't w my files
