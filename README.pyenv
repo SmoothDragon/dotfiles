@@ -1,3 +1,8 @@
+
+# Install pyenv
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+# pyenv configuration set up in .zshenv
+#
 # pyenv will install various versions of python
 pyenv install --list  # Show available versions to install
 

@@ -265,5 +265,5 @@ show_virtual_env() {
 }
 
 # pyenv is deprecating their prompt mangling
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-PS1='$(show_virtual_env)'$PS1
+# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# PS1='$(show_virtual_env)'$PS1
