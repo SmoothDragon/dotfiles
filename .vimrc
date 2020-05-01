@@ -23,7 +23,7 @@ augroup END
 " Key Bindings-----------------------{{{
 " Enter Normal mode using jj typed quickly
 :inoremap jj <esc>
-:inoremap jk <esc>
+" :inoremap jk <esc>
 " Do colon commands with semicolon
 map ; :
 noremap ;; ;
@@ -77,6 +77,7 @@ set laststatus=2                " Always display the status line
 set confirm                     " Ask to save instead of aborting
 set visualbell                  " Use visual bell instead of beeping
 set cmdheight=2                 " Set command window height to 2 lines
+set showcmd                     " Show command sequence building in lower right
 " Files
 set modelines=5                 " Allow Vim to readfile for settings
 set autochdir                   " Change working directory to open file
@@ -267,7 +268,7 @@ augroup comment_toggle
   autocmd FileType vim                    let b:comment = '" '
   autocmd FileType tex,zinc,matlab        let b:comment = '% '
   autocmd FileType c,cpp,java,openscad,javascript,gv let b:comment = '\/\/ '
-  autocmd FileType haskell                let b:comment = '-- '
+  autocmd FileType haskell,cabal          let b:comment = '-- '
   function! CommentToggle()
     if exists("b:comment")
       let comment = b:comment
@@ -498,7 +499,7 @@ imap <down> <esc>gja
 " map <f2> :w\|!python %<cr>
 
 " autocmd FileType todo nnoremap <leader>c A<CR><ESC>:python todo_copy_task()<CR>A
-" autocmd FileType todo nnoremap <leader>x :python todo_toggle_completion()<CR>j
+" autocmd FileType todo nnoremap <leader>a :python todo_toggle_completion()<CR>j
 
 " More complicated CommentToggle for todo.txt format
 " autocmd FileType todo nnoremap <F7> :python todo_toggle_completion()<CR>j

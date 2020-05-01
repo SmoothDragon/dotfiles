@@ -1,0 +1,4 @@
+# pyenv will install various versions of python
+pyenv install --list  # Show available versions to install
+
+pipenv will then manage the package installation within that version?

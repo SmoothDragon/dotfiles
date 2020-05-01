@@ -1,8 +1,17 @@
 # Local settings {{{
+
+# Primary group user is in
 GROUP=`id -g -n`
+
+# {print $2} recovers local address name (e.g. san.rr.com)
+# {print $1} separates on . to get most specific name (e.g. san)
 LOCATION=`grep search /etc/resolv.conf | gawk '{print $2}' | gawk -F . '{print $1}'`
+
+# zsh setup specific to a group or location
 [[ -f ~/.zshrc.$GROUP ]] && . ~/.zshrc.$GROUP
 [[ -f ~/.zshrc.$LOCATION ]] && . ~/.zshrc.$LOCATION
+
+echo "Group: $GROUP    Location: $LOCATION"
 
 # }}}
 # Global settings {{{
@@ -18,7 +27,7 @@ export HISTFILESIZE=1048576
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 #export TERM=vt100
-export PATH=~/bin:~/local/bin:~/.local/bin:~/opt/bin:~/go/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
+export PATH=~/bin:~/local/bin:~/.local/bin:~/opt/bin:~/go/bin:~/.cabal/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
 #export CDPATH=.:~:.. ## on cd command offer dirs in home and one dir up
 
 # Programming    {{{
