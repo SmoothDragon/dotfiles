@@ -42,18 +42,18 @@ dxf:	$(DXF)
 	latex -halt-on-error -file-line-error -interaction=nonstopmode -output-directory=$(TEXTMP) $<
 	mv $(TEXTMP)/$@ .
 
-%.pdf:	%.mkd
-	pandoc $< -f markdown --latex-engine pdflatex -o $@
-
-%.pdf:	%.svg
-	inkscape -z -D --file=$< --export-pdf=$@ --export-latex
-
 %.pdf:	%.tex
 	pdflatex -interaction=nonstopmode $<
 # Rerun if references are not up to date
 ifeq ($(grep 'LaTeX Warning: .* may have changed' $*.log),)
 	pdflatex -interaction=nonstopmode $<
 endif
+
+%.pdf:	%.mkd
+	pandoc $< -f markdown --latex-engine pdflatex -o $@
+
+%.pdf:	%.svg
+	inkscape -z -D --file=$< --export-pdf=$@ --export-latex
 
 %.png:	%.dot
 	dot -Tpng $< -o $@
