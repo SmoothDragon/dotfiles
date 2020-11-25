@@ -11,7 +11,7 @@ LOCATION=`grep search /etc/resolv.conf | gawk '{print $2}' | gawk -F . '{print $
 [[ -f ~/.zshrc.$GROUP ]] && . ~/.zshrc.$GROUP
 [[ -f ~/.zshrc.$LOCATION ]] && . ~/.zshrc.$LOCATION
 
-echo "Group: $GROUP    Location: $LOCATION"
+echo "Group: $GROUP    Location: $LOCATION  Hostname: $HOSTNAME"
 
 # }}}
 # Global settings {{{
@@ -71,6 +71,7 @@ setopt HIST_FIND_NO_DUPS
 setopt EXTENDED_HISTORY
     
 # zstyle completion options
+setopt COMPLETEALIASES
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 zstyle ':completion:*:messages' format '%d'
