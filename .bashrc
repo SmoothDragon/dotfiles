@@ -8,6 +8,15 @@ case $- in
       *) return;;
 esac
 
+# Local settings {{{
+GROUP=`id -g -n`
+LOCATION=`grep search /etc/resolv.conf | gawk '{print $2}' | gawk -F . '{print $1}'`
+[[ -f ~/.bashrc.$GROUP ]] && . ~/.bashrc.$GROUP
+[[ -f ~/.bashrc.$LOCATION ]] && . ~/.bashrc.$LOCATION
+
+echo "Group: $GROUP    Location: $LOCATION  Hostname: $HOSTNAME"
+
+# }}}
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
