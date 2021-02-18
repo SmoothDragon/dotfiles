@@ -110,7 +110,7 @@ augroup filetype_txt
   autocmd!
   " autocmd FileType text setlocal wrap linebreak nolist
   " autocmd FileType text setlocal formatoptions=amt
-  " autocmd FileType text setlocal textwidth=80
+  " autocmd FileType text setlocal textwidth=120
   " autocmd FileType text setlocal wrapmargin=0
 augroup END
 " }}}
@@ -267,7 +267,7 @@ augroup comment_toggle
   autocmd FileType python,ruby,sh,make    let b:comment = '# '
   autocmd FileType vim                    let b:comment = '" '
   autocmd FileType tex,zinc,matlab        let b:comment = '% '
-  autocmd FileType c,cpp,java,openscad,javascript,gv let b:comment = '\/\/ '
+  autocmd FileType c,cpp,java,openscad,javascript,gv,go let b:comment = '\/\/ '
   autocmd FileType haskell,cabal          let b:comment = '-- '
   function! CommentToggle()
     if exists("b:comment")

@@ -1,1 +1,0 @@
-../../direnv/vendor/github.com

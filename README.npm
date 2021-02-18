@@ -1,0 +1,4 @@
+$  mkdir ~/.npm-global # directory where npm will install packages
+$  npm config set prefix '~/.npm-global' # configure npm
+$  echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.profile #add directory to path
+$  source ~/.profile # refresh path for current session

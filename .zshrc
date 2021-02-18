@@ -27,7 +27,7 @@ export HISTFILESIZE=1048576
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 #export TERM=vt100
-export PATH=~/bin:~/local/bin:~/.local/bin:~/opt/bin:~/go/bin:~/.cabal/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
+export PATH=~/bin:~/local/bin:~/.local/bin:~/opt/bin:~/go/bin:~/.cabal/bin:~/.npm-global/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
 #export CDPATH=.:~:.. ## on cd command offer dirs in home and one dir up
 
 # Programming    {{{
