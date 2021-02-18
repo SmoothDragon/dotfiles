@@ -82,6 +82,7 @@ set showcmd                     " Show command sequence building in lower right
 set modelines=5                 " Allow Vim to readfile for settings
 set autochdir                   " Change working directory to open file
 set clipboard=unnamedplus       " Copy/paste to system clipboard (requires vim-gtk)
+set colorcolumn=120             " Highlight text after 120 characters
 " }}}
 " Discipline coding settings-----------{{{
 " inoremap <up>    <nop>
