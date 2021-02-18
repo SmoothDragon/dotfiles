@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Transcoding optimized for plex
+
+# Examples
+# ffmpeg -i Barbie_\ A\ Perfect\ Christmas\ \(1080p\ H.mov -loop 1 -c:v libx264 -crf 21 -level 4.0 -preset slow -copy_unknown -c:a aac -q:a 6 -c:s mov_text -movflags +faststart -strict -2 -c:s srt "Barbie A Perfect Christmas (2008).mkv"   
+
+# ffmpeg -i Barbie\ A\ Christmas\ Carol\ \(2008\).vob -loop 1 -c:v libx264 -crf 21 -level 4.0 -preset slow  -c:a aac -q:a 6 -c:s mov_text -movflags +faststart -strict -2 -c:s srt -aspect 16:9 "Barbie A Christmas Carol (2008).mkv"
+
+file=$1
+ffmpeg -i "$file" -loop 1 -c:v libx264 -crf 21 -level 4.0 -preset slow  -c:a aac -q:a 6 -c:s mov_text -movflags +faststart -strict -2 -c:s srt -aspect 16:9 "${file%.*}.mkv"
