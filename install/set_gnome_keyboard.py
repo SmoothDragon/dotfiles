@@ -23,7 +23,7 @@ shortcuts = [
     },
     {
         'name': 'Terminal',
-        'command': 'gnome-terminal',
+        'command': 'gnome-terminal --zoom=1.5 --geometry=120x80+2800+1400',
         'binding': '<Super><Alt>t',
     },
     {

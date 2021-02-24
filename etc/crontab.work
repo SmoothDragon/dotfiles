@@ -1,0 +1,2 @@
+# Try to log me out repeatedly after 5pm
+*/15 17-20 * * 1-5 /bin/bash /n/U/tdraper/dotfiles/logout_check.sh
