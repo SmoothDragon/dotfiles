@@ -43,11 +43,17 @@ dxf:	$(DXF)
 	mv $(TEXTMP)/$@ .
 
 %.pdf:	%.tex
-	pdflatex -interaction=nonstopmode $<
+	mkdir -p $(TEXTMP)
+	pdflatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
+	ln -s ../$*.bib $(TEXTMP)/ || true  # Link bibtex file into directory if it exists
+	cd $(TEXTMP) && bibtex $* || true  # It is hard to know when bibtex fails
+	pdflatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
+	pdflatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
+	mv $(TEXTMP)/$@ .
 # Rerun if references are not up to date
-ifeq ($(grep 'LaTeX Warning: .* may have changed' $*.log),)
-	pdflatex -interaction=nonstopmode $<
-endif
+# ifeq ($(grep 'LaTeX Warning: .* may have changed' $*.log),)
+# 	pdflatex -interaction=nonstopmode $<
+# endif
 
 %.pdf:	%.mkd
 	pandoc $< -f markdown --latex-engine pdflatex -o $@
