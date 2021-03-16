@@ -3,8 +3,8 @@ if exists("b:current_syntax")
 endif
 
 syntax match todoDone /^x .*/
-syntax match todoPriorityA /^(A).*/
-syntax match todoPriorityB /^(B).*/
+syntax match todoPriorityA /^(A.*/
+syntax match todoPriorityB /^(B.*/
 
 " highlight link todoPriority Keyword
 highlight todoPriorityA ctermfg=red
