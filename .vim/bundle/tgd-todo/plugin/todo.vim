@@ -27,4 +27,7 @@ autocmd FileType todo imap     <buffer> <silent> <C-x>     <C-o><C-x>
 autocmd FileType todo nnoremap <buffer> <silent> <leader>a :python3 set_priority('A')<CR>
 autocmd FileType todo nnoremap <buffer> <silent> <leader>b :python3 set_priority('B')<CR>
 autocmd FileType todo nnoremap <buffer> <silent> <leader>c :python3 set_priority('C')<CR>
+autocmd FileType todo nnoremap <buffer> <silent> <leader>A :python3 set_priority('A')<CR>
+autocmd FileType todo nnoremap <buffer> <silent> <leader>B :python3 set_priority('B')<CR>
+autocmd FileType todo nnoremap <buffer> <silent> <leader>C :python3 set_priority('C')<CR>
 autocmd FileType todo nnoremap <buffer> <silent> <leader>r :python3 set_priority('R')<CR>

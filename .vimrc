@@ -141,6 +141,12 @@ augroup filetype_markdown
   autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 augroup END
 " }}}
+" Cryptol file settings--------------{{{
+augroup filetype_cryptol
+  autocmd!
+  autocmd BufNewFile,BufRead *.cry setlocal filetype=cryptol
+augroup END
+" }}}
 " Makefile file settings--------------{{{
 augroup filetype_make
   autocmd!
@@ -269,7 +275,7 @@ augroup comment_toggle
   autocmd FileType python,ruby,sh,make    let b:comment = '# '
   autocmd FileType vim                    let b:comment = '" '
   autocmd FileType tex,zinc,matlab        let b:comment = '% '
-  autocmd FileType c,cpp,java,openscad,javascript,gv,go let b:comment = '\/\/ '
+  autocmd FileType c,cpp,java,openscad,javascript,gv,go,cryptol let b:comment = '\/\/ '
   autocmd FileType haskell,cabal          let b:comment = '-- '
   function! CommentToggle()
     if exists("b:comment")
@@ -281,8 +287,7 @@ augroup comment_toggle
     execute ':silent! s/^\( *\)' . comment . comment .'/\1/'
   endfunction
 
-  " Add and remove line comments
-  nnoremap <SPACE> :call CommentToggle()<CR>j
+  noremap <SPACE> :call CommentToggle()<CR>j
   nnoremap <leader>c :call CommentToggle()<CR>j
 augroup END
 " }}}
