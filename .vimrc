@@ -119,7 +119,8 @@ augroup END
 augroup filetype_latex autocmd!
   " autocmd FileType tex setlocal wrap linebreak nolist
   " autocmd FileType tex setlocal formatoptions=want
-  autocmd FileType tex setlocal textwidth=80
+  autocmd FileType tex setlocal textwidth=120
+  autocmd FileType tex setlocal tw=0
   autocmd FileType tex setlocal wrapmargin=0
   autocmd FileType tex setlocal expandtab smarttab softtabstop=2
   autocmd FileType tex setlocal shiftwidth=2
