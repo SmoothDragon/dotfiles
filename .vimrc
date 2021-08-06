@@ -1,6 +1,6 @@
 set nocompatible
 " .vimrc by Thomas Draper
-" FIRST! Pathogen bundle settings----------{{{
+" //IRST! Pathogen bundle settings----------{{{
 " PATHOGEN loads scripts in .vim/bundle directory
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
@@ -22,8 +22,8 @@ augroup END
 " }}}
 " Key Bindings-----------------------{{{
 " Enter Normal mode using jj typed quickly
-:inoremap jj <esc>
-" :inoremap jk <esc>
+" :inoremap jkj <esc>
+:inoremap jk <esc>
 " Do colon commands with semicolon
 map ; :
 noremap ;; ;
@@ -144,6 +144,12 @@ augroup END
 augroup filetype_cryptol
   autocmd!
   autocmd BufNewFile,BufRead *.cry setlocal filetype=cryptol
+augroup END
+" }}}
+" Qsharp file settings--------------{{{
+augroup filetype_qsharp
+  autocmd!
+  autocmd BufNewFile,BufRead *.qs setlocal filetype=qsharp
 augroup END
 " }}}
 " Makefile file settings--------------{{{
@@ -274,7 +280,7 @@ augroup comment_toggle
   autocmd FileType python,ruby,sh,make    let b:comment = '# '
   autocmd FileType vim                    let b:comment = '" '
   autocmd FileType tex,zinc,matlab        let b:comment = '% '
-  autocmd FileType c,cpp,java,openscad,javascript,gv,go,cryptol let b:comment = '\/\/ '
+  autocmd FileType c,cpp,java,openscad,javascript,gv,go,cryptol,qsharp let b:comment = '\/\/ '
   autocmd FileType haskell,cabal          let b:comment = '-- '
   function! CommentToggle()
     if exists("b:comment")
