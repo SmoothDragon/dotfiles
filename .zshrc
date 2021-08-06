@@ -77,6 +77,8 @@ zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
 zstyle ':completion:*' group-name ''    
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+
 
 # }}}
 # Alias {{{
