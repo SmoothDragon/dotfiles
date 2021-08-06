@@ -49,17 +49,25 @@ dxf:	$(DXF)
 	cd $(TEXTMP) && bibtex $* || true  # It is hard to know when bibtex fails
 	pdflatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
 	pdflatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
-	mv $(TEXTMP)/$@ .
 # Rerun if references are not up to date
 # ifeq ($(grep 'LaTeX Warning: .* may have changed' $*.log),)
 # 	pdflatex -interaction=nonstopmode $<
 # endif
+	cp $(TEXTMP)/$@ .
+# 	rm -rf $(TEXTMP)
 
 %.pdf:	%.mkd
 	pandoc $< -f markdown --latex-engine pdflatex -o $@
 
 %.pdf:	%.svg
 	inkscape -z -D --file=$< --export-pdf=$@ --export-latex
+
+%.png:	%.dot
+	dot -Tpng $< -o $@
+
+%.png:	%.pdf
+	pdftoppm -png $< $*
+	mv $*-1.png $@
 
 %.png:	%.dot
 	dot -Tpng $< -o $@
