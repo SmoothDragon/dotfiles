@@ -28,7 +28,7 @@ export HISTFILESIZE=1048576
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 #export TERM=vt100
-export PATH=~/bin:~/local/bin:~/.local/bin:~/opt/bin:~/go/bin:~/.cabal/bin:~/.npm-global/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
+export PATH=~/dotfiles/bin:~/bin:~/local/bin:~/.local/bin:~/opt/bin:~/go/bin:~/.cabal/bin:~/.npm-global/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
 #export CDPATH=.:~:.. ## on cd command offer dirs in home and one dir up
 
 # Programming    {{{
@@ -144,7 +144,7 @@ function __prompt_git()
                   echo "[$br$top]"
 }
 export PS1='[%?]%{$fg[green]%}%n%{$reset_color%}@%m:%~\$ '
-export RPS1='%{$fg[yellow]%}$(__prompt_git) %{$reset_color%}%*'
+export RPS1='%{$fg[yellow]%}$(__prompt_git) %{$reset_color%}%D{%Y%m%d-%H:%M:%S}'
 # #export RPS1='%{$fg[yellow]%}${vcs_info_msg_0_} %{$reset_color%}%*'
 # if [[ "$USER" == "root" ]] ; then
         # export PS1='[%?]%{$fg[red]%}%n%{$reset_color%}@%m:%~# '
@@ -269,3 +269,14 @@ fi
 # pyenv is deprecating their prompt mangling
 # export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 # PS1='$(show_virtual_env)'$PS1
+#
+
+# Only executes if new shell is in a TMUX session
+if (( ${+TMUX} )); then
+  # .tmux_envrc should set environment variables for all interactive shells
+  if [[ -a .tmux_envrc ]]; then
+    echo "Activitating local .tmux_envrc"
+    source .tmux_envrc
+  fi
+fi
+
