@@ -22,6 +22,7 @@ augroup END
 " }}}
 " Key Bindings-----------------------{{{
 " Enter Normal mode using jj typed quickly
+" :inoremap jjj <esc>
 " :inoremap jkj <esc>
 " :inoremap jj <esc>
 :inoremap jk <esc>
