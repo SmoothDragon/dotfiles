@@ -1,3 +1,10 @@
 #!/bin/bash
 
-sudo apt install gzip nodejs npm openssh-server tmux unzip vim zsh 
+sudo apt install \
+  git \
+  gzip \
+  openssh-server \
+  tmux \
+  unzip \
+  vim \
+  zsh 
