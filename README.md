@@ -1,3 +1,7 @@
+# github
+# To store personal authentication tokens locally
+git config --global credential.helper store
+
 # pyenv
 
 ## Install
