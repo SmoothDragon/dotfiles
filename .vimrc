@@ -1,6 +1,6 @@
 set nocompatible
 " .vimrc by Thomas Draper
-" FIRST! Pathogen bundle settings----------{{{
+" //IRST! Pathogen bundle settings----------{{{
 " PATHOGEN loads scripts in .vim/bundle directory
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
@@ -23,6 +23,7 @@ augroup END
 " Key Bindings-----------------------{{{
 " Enter Normal mode using jj typed quickly
 " :inoremap jjj <esc>
+" :inoremap jkj <esc>
 :inoremap jk <esc>
 " Do colon commands with semicolon
 map ; :
@@ -119,7 +120,8 @@ augroup END
 augroup filetype_latex autocmd!
   " autocmd FileType tex setlocal wrap linebreak nolist
   " autocmd FileType tex setlocal formatoptions=want
-  autocmd FileType tex setlocal textwidth=80
+  autocmd FileType tex setlocal textwidth=120
+  autocmd FileType tex setlocal tw=0
   autocmd FileType tex setlocal wrapmargin=0
   autocmd FileType tex setlocal expandtab smarttab softtabstop=2
   autocmd FileType tex setlocal shiftwidth=2
@@ -138,6 +140,18 @@ augroup END
 augroup filetype_markdown
   autocmd!
   autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+" }}}
+" Cryptol file settings--------------{{{
+augroup filetype_cryptol
+  autocmd!
+  autocmd BufNewFile,BufRead *.cry setlocal filetype=cryptol
+augroup END
+" }}}
+" Qsharp file settings--------------{{{
+augroup filetype_qsharp
+  autocmd!
+  autocmd BufNewFile,BufRead *.qs setlocal filetype=qsharp
 augroup END
 " }}}
 " Makefile file settings--------------{{{
@@ -268,7 +282,7 @@ augroup comment_toggle
   autocmd FileType python,ruby,sh,make    let b:comment = '# '
   autocmd FileType vim                    let b:comment = '" '
   autocmd FileType tex,zinc,matlab        let b:comment = '% '
-  autocmd FileType c,cpp,java,openscad,javascript,gv,go let b:comment = '\/\/ '
+  autocmd FileType c,cpp,java,openscad,javascript,gv,go,cryptol,qsharp let b:comment = '\/\/ '
   autocmd FileType haskell,cabal          let b:comment = '-- '
   function! CommentToggle()
     if exists("b:comment")
@@ -280,8 +294,7 @@ augroup comment_toggle
     execute ':silent! s/^\( *\)' . comment . comment .'/\1/'
   endfunction
 
-  " Add and remove line comments
-  nnoremap <SPACE> :call CommentToggle()<CR>j
+  noremap <SPACE> :call CommentToggle()<CR>j
   nnoremap <leader>c :call CommentToggle()<CR>j
 augroup END
 " }}}

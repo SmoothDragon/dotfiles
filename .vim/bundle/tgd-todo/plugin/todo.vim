@@ -24,6 +24,7 @@ autocmd FileType todo imap     <buffer> <silent> <C-a>     <C-o><C-a>
 " autocmd FileType todo inoremap <buffer> <silent> <C-a>     <ESC>:python3 todo_modify_date(1)<CR>i
 autocmd FileType todo nnoremap <buffer> <silent> <C-x>     :python3 todo_modify_date(-1)<CR>
 autocmd FileType todo imap     <buffer> <silent> <C-x>     <C-o><C-x>
+autocmd FileType todo nnoremap <buffer> <silent> <leader>1 :python3 set_priority('1')<CR>
 autocmd FileType todo nnoremap <buffer> <silent> <leader>a :python3 set_priority('A')<CR>
 autocmd FileType todo nnoremap <buffer> <silent> <leader>b :python3 set_priority('B')<CR>
 autocmd FileType todo nnoremap <buffer> <silent> <leader>c :python3 set_priority('C')<CR>
