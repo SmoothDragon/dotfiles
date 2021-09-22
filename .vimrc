@@ -22,8 +22,8 @@ augroup END
 " }}}
 " Key Bindings-----------------------{{{
 " Enter Normal mode using jj typed quickly
-:inoremap jj <esc>
-" :inoremap jk <esc>
+" :inoremap jjj <esc>
+:inoremap jk <esc>
 " Do colon commands with semicolon
 map ; :
 noremap ;; ;
