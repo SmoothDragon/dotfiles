@@ -1,0 +1,92 @@
+#!/usr/bin/python
+
+help = '''Construct words using the letters given.
+Uppercase letters are required.
+Lowercase letters are allowed.
+Other letters are forbidden.
+
+Usage: letterbank abcDEF
+
+TODO: Correct multiple letter required
+thEE -> EH (no!)
+'''
+
+import functools
+
+# popCount :: Int -> Int
+def popCount(n):
+    '''
+    The count of non-zero digits in the binary
+    representation of the positive integer n.
+
+    >>> popCount(7)
+    3
+    '''
+    count = 0
+    while n>0:
+        n &= n-1
+        count += 1
+    return count
+
+def bitHash(s):
+    # s = s.upper()
+    a = 0
+    for c in s:
+        n = ord(c)-65
+        a |= 1 << n
+    return a
+
+
+def Letterbank(word):
+    '''
+    >>> Letterbank('ratesz')
+    ['ERSATZ', 'ERSATZES']
+    '''
+    letters = word.upper()
+    value = bitHash(letters)
+
+    l = len(letters)+1 # To avoid stripping of the '\n' before comparing
+
+    wordlist = open("/usr/local/share/dict/OWL14.txt",'r').readlines()
+    results = []
+    for line in wordlist:
+        line = line.rstrip()
+        lineValue = bitHash(line)
+        if value == lineValue:
+            results.append(line) 
+    return results
+
+def is_letterbank(required, optional):
+    req_hash = bitHash(required)
+    opt_hash = bitHash(optional) | req_hash
+    def functest(word):
+        word_hash = bitHash(word)
+        if word_hash | opt_hash != opt_hash:
+            return False
+        if word_hash & req_hash != req_hash:
+            return False
+        return True
+    return functest
+
+def main(query):
+    required = [ch for ch in query if ch.isupper()]
+    optional = [ch.upper() for ch in query if ch.islower()]
+    word_test = is_letterbank(required, optional)
+    with open("/usr/local/share/dict/OWL14.txt",'r') as infile:
+        result = []
+        for line in infile:
+            word = line.rstrip()
+            if word_test(word):
+                result.append(word)
+    return result
+
+
+if __name__ == '__main__':
+    import sys
+    import fileinput
+
+    try:
+        for line in fileinput.input(sys.argv[1:]):
+            print(' '.join(main(line)))
+    except IOError:
+        print(' '.join(main(sys.argv[1])))

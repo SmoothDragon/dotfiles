@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+'''Normalize each line according to Daily Puzz rules.
+'''
+
+import sys
+import fileinput
+
+def Normalize(word):
+    word = word.lower()
+    remove = {ord(ch):None for ch in ' ,.-'}
+    word = word.translate(remove)
+    return word
+
+if __name__ == '__main__':
+    for line in fileinput.input(sys.argv[1:]):
+        print(Normalize(line.strip()))
