@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+'''Compute the MD5 sum of each line
+'''
+
+import sys
+import fileinput
+import hashlib
+
+def lineMD5sum(lines):
+    for line in lines:
+        line = line.strip()
+        linehash = hashlib.md5(line.encode('utf-8')).hexdigest()
+        print(f'{linehash} {line}')
+
+if __name__ == '__main__':
+    lineMD5sum(fileinput.input(sys.argv[1:]))
