@@ -18,6 +18,8 @@ Site = [
         'https://github.com/sirtaj/vim-openscad',
         'https://github.com/pangloss/vim-javascript',
         'https://github.com/elixir-editors/vim-elixir',
+        'https://github.com/pangloss/vim-javascript',
+        'https://github.com/Konfekt/vim-CtrlXA',
         ]
 
 for site in Site:

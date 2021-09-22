@@ -23,6 +23,7 @@ augroup END
 " Key Bindings-----------------------{{{
 " Enter Normal mode using jj typed quickly
 " :inoremap jkj <esc>
+" :inoremap jj <esc>
 :inoremap jk <esc>
 " Do colon commands with semicolon
 map ; :
@@ -133,6 +134,10 @@ augroup filetype_latex autocmd!
   " au VimEnter * syntax keyword Statement lambda conceal cchar=λ
   " au VimEnter * hi! link Conceal NiceKeyword
   " au VimEnter * set conceallevel=2
+  autocmd FileType tex
+    \ let b:CtrlXA_Toggles = [
+    \ ['begin', 'end'],
+    \ ] + g:CtrlXA_Toggles 
 augroup END
 " }}}
 " Markdown file settings--------------{{{
