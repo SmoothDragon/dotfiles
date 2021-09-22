@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+
+import sys
+
+header=r'''\documentclass[border=0pt]{standalone}
+\usepackage{pgfplots}
+\usepackage{tikz}
+%\usepackage{geometry}
+'''
+
+prescript=r'''\begin{document}
+'''
+
+postscript=r'''\end{document}
+'''
+
+header_flag = '%! '
+
+# print(header, end='')
+prescript_done = False
+
+front = []
+tikz = []
+
+with open(sys.argv[1]) as infile:
+    for line in infile.readlines():
+        if line.startswith(header_flag):
+            front.append(line[len(header_flag):])
+            continue
+        if line.startswith(r'\begin{tikzpicture}'):
+            tikz.append(prescript)
+            prescript_done = True
+        if not prescript_done:
+            front.append(line)
+        else:
+            tikz.append(line)
+
+output = header + ''.join(front) + ''.join(tikz) + postscript
+print(output)

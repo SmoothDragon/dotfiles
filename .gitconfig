@@ -3,3 +3,5 @@
 	name = Thomas Draper
 [push]
 	default = simple
+[credential]
+	helper = store
