@@ -36,6 +36,11 @@ shortcuts = [
         'command': '/n/common/google-chrome/curr/google-chrome',
         'binding': '<Super><Alt>z',
     },
+    {
+        'name': 'Thunderbird',
+        'command': '/usr/local/bin/thunderbird',
+        'binding': '<Super><Alt>m',
+    },
 ]
 
 def execute_command(cmd):
