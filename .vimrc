@@ -153,6 +153,13 @@ augroup filetype_cryptol
   autocmd BufNewFile,BufRead *.cry setlocal filetype=cryptol
 augroup END
 " }}}
+" Lark file settings-----------------{{{
+augroup filetype_lark
+  autocmd!
+  autocmd BufNewFile,BufRead *.lark setlocal filetype=lark
+  autocmd FileType lark setlocal expandtab smarttab softtabstop=4
+augroup END
+" }}}
 " Qsharp file settings--------------{{{
 augroup filetype_qsharp
   autocmd!
@@ -287,7 +294,7 @@ augroup comment_toggle
   autocmd FileType python,ruby,sh,make    let b:comment = '# '
   autocmd FileType vim                    let b:comment = '" '
   autocmd FileType tex,zinc,matlab        let b:comment = '% '
-  autocmd FileType c,cpp,java,openscad,javascript,gv,go,cryptol,qsharp let b:comment = '\/\/ '
+  autocmd FileType c,cpp,java,openscad,javascript,gv,go,cryptol,qsharp,lark let b:comment = '\/\/ '
   autocmd FileType haskell,cabal          let b:comment = '-- '
   function! CommentToggle()
     if exists("b:comment")
