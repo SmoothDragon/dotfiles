@@ -59,8 +59,8 @@ dxf:	$(DXF)
 %.pdf:	%.mkd
 	pandoc $< -f markdown --latex-engine pdflatex -o $@
 
-%.pdf:	%.svg
-	inkscape -z -D --file=$< --export-pdf=$@ --export-latex
+# %.pdf:	%.svg
+# 	inkscape -z -D --file=$< --export-pdf=$@ --export-latex
 
 %.png:	%.dot
 	dot -Tpng $< -o $@
@@ -79,7 +79,7 @@ dxf:	$(DXF)
 	openscad -m make -o $@ $<
 
 %.svg:	%.dvi
-	dvisvgm --no-fonts $<
+	dvisvgm --font-format=woff $<
 
 %.svg:	%.dot
 	dot -Tsvg $< -o $@
@@ -93,11 +93,14 @@ dxf:	$(DXF)
 %.tikz:	%.dot
 	dot2tex --preproc $< | dot2tex --figonly > $@
 
+%.html: %.md
+	pandoc $< > $@
+
 %.mp3:	%.mkv
 	ffmpeg -i $< -vn -c:a libmp3lame -y $@
 
 clean:
 	/bin/rm -f $(AUTO)
 
-.SECONDARY:	$(SCAD) $(STL) $(DXF)
+# .SECONDARY:	$(SCAD) $(STL) $(DXF)
 .PHONY:		all clean stl dxf
