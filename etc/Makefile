@@ -99,6 +99,9 @@ dxf:	$(DXF)
 %.mp3:	%.mkv
 	ffmpeg -i $< -vn -c:a libmp3lame -y $@
 
+%.csv:	%.sql
+	sql2csv $< > $@
+
 clean:
 	/bin/rm -f $(AUTO)
 

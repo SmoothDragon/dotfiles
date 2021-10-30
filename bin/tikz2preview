@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 #############################################################################
 #Copyright (c) 2013, Institute for Defense Analyses, 4850 Mark Center Drive;#
@@ -34,9 +34,13 @@ with open(sys.argv[1]) as file:
         if line.startswith(header_flag):
             print(line[len(header_flag):],end='')
             continue
+        if line.startswith(r'\begin{tikzpicture}'):
+            tikz.append(prescript)
+            prescript_done = True
         if not prescript_done:
-            print(prescript,end='')
-            prescript_done = 1
-        print(line,end='')
-    
-print(postscript,end='')
+            front.append(line)
+        else:
+            tikz.append(line)
+
+output = header + ''.join(front) + ''.join(tikz) + postscript
+print(output)
