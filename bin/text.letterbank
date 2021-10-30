@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 help = '''Construct words using the letters given.
 Uppercase letters are required.
@@ -7,26 +7,11 @@ Other letters are forbidden.
 
 Usage: letterbank abcDEF
 
-TODO: Correct multiple letter required
-thEE -> EH (no!)
 '''
 
+import collections
 import functools
 
-# popCount :: Int -> Int
-def popCount(n):
-    '''
-    The count of non-zero digits in the binary
-    representation of the positive integer n.
-
-    >>> popCount(7)
-    3
-    '''
-    count = 0
-    while n>0:
-        n &= n-1
-        count += 1
-    return count
 
 def bitHash(s):
     # s = s.upper()
@@ -36,7 +21,6 @@ def bitHash(s):
         a |= 1 << n
     return a
 
-
 def Letterbank(word):
     '''
     >>> Letterbank('ratesz')
@@ -45,9 +29,9 @@ def Letterbank(word):
     letters = word.upper()
     value = bitHash(letters)
 
-    l = len(letters)+1 # To avoid stripping of the '\n' before comparing
+    l = len(letters)+1  # To avoid stripping of the '\n' before comparing
 
-    wordlist = open("/usr/local/share/dict/OWL14.txt",'r').readlines()
+    wordlist = open("/usr/local/share/dict/OWL14.txt", 'r').readlines()
     results = []
     for line in wordlist:
         line = line.rstrip()
@@ -59,12 +43,17 @@ def Letterbank(word):
 def is_letterbank(required, optional):
     req_hash = bitHash(required)
     opt_hash = bitHash(optional) | req_hash
+    req_count = collections.Counter(required)
     def functest(word):
         word_hash = bitHash(word)
-        if word_hash | opt_hash != opt_hash:
-            return False
         if word_hash & req_hash != req_hash:
             return False
+        if word_hash | opt_hash != opt_hash:
+            return False
+        word_count = collections.Counter(word)
+        for letter in req_count:
+            if req_count[letter] > word_count[letter]:
+                return False
         return True
     return functest
 

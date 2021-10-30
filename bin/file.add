@@ -1,0 +1,108 @@
+#!/usr/bin/env python
+
+import sqlite3 as sql
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy
+
+from inspect import getsourcefile
+from pathlib import Path
+import os
+
+def is_qnr17(x):
+    S = set((ii*ii)%17 for ii in range(17))
+    N = {ii:bin(ii) for ii in range(17) if ii not in S}
+    return x in N
+
+def load_table_from_sql(sql_filename, table):
+    '''Grab table from sql db into pandas data frame.
+    '''
+    conn = sql.connect(sql_filename)
+    query = f'SELECT * FROM {table};'
+    df = pd.read_sql(query, conn)
+    conn.close()
+    return df
+
+def load_special_from_sql(sql_filename):
+    conn = sql.connect(sql_filename)
+    query = 'SELECT job_id, timestamp, nisq.name AS name, (c3+c5+c6+c7+c10+c11+c12+c14)/1000.0 AS score, t1.mean FROM nisq JOIN (SELECT name, AVG(c3+c5+c6+c7+c10+c11+c12+c14) AS mean FROM nisq GROUP BY name) t1 ON (nisq.name = t1.name) WHERE score<.99 ORDER BY mean DESC;'
+    df = pd.read_sql(query, conn)
+    conn.close()
+    return df
+
+def clean_df(df):
+    '''Make any corrections/additions to data frame before processing
+    '''
+    df = df.loc[df['name']!='ionq.simulator.azure']
+    df = df.loc[df['name']!='simulator_statevector']
+    df = df.loc[df['name']!='ibmq_qasm_simulator']
+    df = df.loc[df['name'] != 'honeywell.hqs-lt-1.0.azure']
+    # print(df.to_string())
+    # exit(0)
+    # Change IBM names
+    ## Normalize nonstandard IBM names
+    for index in df.index:
+        if df.loc[index, 'name'] == 'ibmqx2':
+            df.loc[index, 'name'] = 'ibmq_x2'
+    for index in df.index:
+        name = df.loc[index, 'name']
+        if name[:4] == 'ibmq':
+            name = 'ibmq.' + name.split('_')[-1]
+            df.loc[index, 'name'] = name
+    # Fix ionq azure names
+    for index in df.index:
+        if df.loc[index, 'name'] == 'ionq.qpu.azure':
+            df.loc[index, 'name'] = 'ionq.az'
+
+    for index in df.index:
+        if df.loc[index, 'name'] == 'honeywell.hqs-lt-1.0.azure':
+            df.loc[index, 'name'] = 'honeywell.H0.az'
+    return df
+
+def add_score_column(df):
+    all_cols = ['c%d'%i for i in range(16)]
+    qr_cols = ['c%d'%i for i in range(16) if not is_qnr17(i)]
+    qnr_cols = ['c%d'%i for i in range(16) if is_qnr17(i)]
+    qnr_data = df.loc[:,qnr_cols]
+    df['total']=df.loc[:,all_cols].sum(axis=1)
+    df['total_qnr']=df.loc[:,qnr_cols].sum(axis=1)
+    df['total_qr']=df.loc[:,qr_cols].sum(axis=1)
+    df['score'] = df.loc[:,'total_qnr']/df.loc[:,'total']
+    return df
+
+def add_chisquare_column(df):
+    all_cols = ['c%d'%i for i in range(16)]
+    qnr_cols = ['c%d'%i for i in range(16) if is_qnr17(i)]
+    qnr_data = df.loc[:,qnr_cols]
+    df['total_qnr']=df.loc[:,qnr_cols].sum(axis=1)
+    E_i = df['total_qnr']/8
+    df['chisquare'] = sum((df[col]-E_i)*(df[col]-E_i)/E_i for col in qnr_cols)
+    return df
+
+def mkdir_p(dirpath):
+    '''mkdir -p
+    Make directory if it doesn't exist. Ignore if it does.
+    '''
+    if not os.path.isdir(dirpath):
+        os.mkdir(dirpath)
+
+if __name__ == '__main__':
+    bin_dir = Path(os.path.dirname(getsourcefile(lambda:0)))
+    graphics_dir = bin_dir / '..' / 'graphics'
+    mkdir_p(graphics_dir)
+    stat_dir = bin_dir / '..' / 'stats'
+    sql_filename = stat_dir / 'nisq_runs.sql'
+    df = load_table_from_sql(sql_filename, table='nisq')
+    df = add_score_column(df)
+    # df = load_special_from_sql(sql_filename)
+    df = add_chisquare_column(df)
+    print(df)
+    df = clean_df(df)
+    grp_order = df.groupby(by=['name'])['score'].mean().sort_values(ascending=False).index
+    print(grp_order)
+    ax = sns.boxplot(x=df['score'], y=df['name'], order=grp_order)
+    ax.figure.subplots_adjust(left = 0.35)
+    # Write file
+    svg_filename = graphics_dir / 'nisq_boxplot.svg'
+    ax.figure.savefig(svg_filename, format='svg')
