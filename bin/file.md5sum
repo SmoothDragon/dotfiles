@@ -1,16 +1,25 @@
 #!/usr/bin/env python3
 
-program = 'line.md5sum'
-version = '1.0'
+program = 'file.md5sum'
+version = '0.1'
 INFO = \
-'''Compute the MD5 sum of each line
+'''Insert file information into a SQL data base.
+id          md5(file+name) 
+filehash    md5(file)
+name        string
+delete      y/n
 '''
 
 import argparse
 import fileinput
 import logging
+import os
 
 import hashlib
+import pathlib
+import sqlite3 as sql
+
+from inspect import getsourcefile
 
 def lineMD5sum(lines, cumulative=False):
     '''Shows MD5sum of each line.
@@ -23,6 +32,17 @@ def lineMD5sum(lines, cumulative=False):
         yield f'{linehash} {line}'
         if not cumulative:
             state = hashlib.md5()
+
+
+def fileMD5sum(filename):
+    md5_hash = hashlib.md5()
+    with open(filename, 'rb') as ff:
+        for byte_block in iter(lambda: ff.read(4096), b""):
+            md5_hash.update(byte_block)
+    file_hash = md5_hash.digest()
+    md5_hash.update(filename.encode('utf-8'))
+    id_hash = md5_hash.digest()
+    return {'id_hash':id_hash, 'file_hash':file_hash}
 
 def parseInput():
     parser = argparse.ArgumentParser(
@@ -56,9 +76,30 @@ def setLogging(verbose):
     logging.basicConfig(level=level, format='%(levelname)-8s %(message)s')
     logging.debug('Using verbosity level {level:d}'.format(**locals()))
 
+def mkdir_p(dirpath):
+    '''mkdir -p
+    Make directory if it doesn't exist. Ignore if it does.
+    '''
+    if not os.path.isdir(dirpath):
+        os.makedirs(dirpath)
+
 if __name__ == '__main__':
     args = parseInput()
     setLogging(verbose=args.verbose)
-    lines = (line for line in fileinput.input(args.args))
-    print(''.join(lineMD5sum(lines, cumulative=args.cumulative)), end='')
+    # Make a list of all the filenames on the command line and as stdin
+    if len(args.args) == 0:
+        names = (name for name in fileinput.input())
+    else:
+        names = args.args
+    for name in names:
+        realfile = pathlib.Path(os.path.realpath(name))
+        realname = realfile.name
+        realpath = realfile.parent
+    # Important to get actual name and not symlink
+    realfile = pathlib.Path(os.path.realpath(__file__))
+    realname = realfile.name
+    bin_dir = realfile.parent
+    db_dir = bin_dir / '..' / 'var/db'
+    mkdir_p(db_dir)
+
 

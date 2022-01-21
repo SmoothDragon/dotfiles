@@ -8,6 +8,8 @@
 # $< = file that caused action
 # $* = prefix shared by target and dependent files
 
+datestamp := $(shell date)
+
 TEXTMP = .textmp
 
 # Identify source files
@@ -54,6 +56,7 @@ dxf:	$(DXF)
 # 	pdflatex -interaction=nonstopmode $<
 # endif
 	cp $(TEXTMP)/$@ .
+	cp $(TEXTMP)/$*.bib . 2>/dev/null || :
 # 	rm -rf $(TEXTMP)
 
 %.pdf:	%.mkd
@@ -62,6 +65,20 @@ dxf:	$(DXF)
 # %.pdf:	%.svg
 # 	inkscape -z -D --file=$< --export-pdf=$@ --export-latex
 
+%.pdf:	%.md
+	pandoc -s $< -o $@ --pdf-engine=xelatex
+
+%.html:	%.md
+	pandoc -s $< -o $@ --metadata pagetitle=$* --metadata date="$(dateestamp)"
+
+%.html:	%.twiki
+	pandoc -s $< --metadata pagetitle=$* --metadata date="$(dateestamp)" \
+		| sed 's/%ATTACHURLPATH%/graphics/' \
+		| sed 's/<head>/<head>\n<meta http-equiv="refresh" content="3">\n' \
+		> $@
+%.quirk:	%.qpic
+	qpic2quirk $< > $@
+
 %.png:	%.dot
 	dot -Tpng $< -o $@
 
@@ -69,8 +86,8 @@ dxf:	$(DXF)
 	pdftoppm -png $< $*
 	mv $*-1.png $@
 
-%.png:	%.dot
-	dot -Tpng $< -o $@
+%.png:	%.svg
+	inkscape -z $< -e $@
 
 %.scad: %.scad.py
 	python3 $< > $@
