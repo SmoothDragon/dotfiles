@@ -62,8 +62,11 @@ dxf:	$(DXF)
 %.pdf:	%.mkd
 	pandoc $< -f markdown --latex-engine pdflatex -o $@
 
-# %.pdf:	%.svg
-# 	inkscape -z -D --file=$< --export-pdf=$@ --export-latex
+%.pdf:	%.svg
+	inkscape $< --without-gui --export-area-drawing --export-pdf=$@
+
+%.png:	%.svg
+	inkscape $< --without-gui --export-png $@
 
 %.pdf:	%.md
 	pandoc -s $< -o $@ --pdf-engine=xelatex
@@ -76,6 +79,7 @@ dxf:	$(DXF)
 		| sed 's/%ATTACHURLPATH%/graphics/' \
 		| sed 's/<head>/<head>\n<meta http-equiv="refresh" content="3">\n' \
 		> $@
+
 %.quirk:	%.qpic
 	qpic2quirk $< > $@
 
@@ -85,9 +89,6 @@ dxf:	$(DXF)
 %.png:	%.pdf
 	pdftoppm -png $< $*
 	mv $*-1.png $@
-
-%.png:	%.svg
-	inkscape -z $< -e $@
 
 %.scad: %.scad.py
 	python3 $< > $@
