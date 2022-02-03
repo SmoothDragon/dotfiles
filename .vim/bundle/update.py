@@ -8,7 +8,7 @@ Site = [
         # 'https://github.com/nvie/vim-flake8',
         'https://github.com/tpope/vim-fugitive',
         'https://github.com/tpope/vim-pathogen',
-        'https://github.com/tpope/vim-sensible',
+        # 'https://github.com/tpope/vim-sensible',
         'https://github.com/tmhedberg/SimpylFold',
         'https://github.com/epeli/slimux',
         'https://github.com/tpope/vim-surround',
