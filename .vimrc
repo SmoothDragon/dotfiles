@@ -15,6 +15,7 @@ nnoremap <leader>v :vsplit $MYVIMRC<cr> " edit my .vimrc file in a vertical spli
 nnoremap <leader>s :split $MYVIMRC<cr>  " edit my .vimrc file in a split
 nnoremap <leader>e :edit $MYVIMRC<cr>   " edit my .vimrc file
 nnoremap <leader>u :source $MYVIMRC<cr> " update the system settings from my vimrc file
+nnoremap <leader>C :! tmake `echo % <bar> sed \"s/tex/pdf/g\"`<cr> " update the system settings from my vimrc file
 augroup reload_vimrc " Automatically source .vimrc upon saving
   autocmd!
   autocmd BufWritePost $MYVIMRC source $MYVIMRC

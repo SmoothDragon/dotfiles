@@ -68,6 +68,9 @@ dxf:	$(DXF)
 %.png:	%.svg
 	inkscape $< --without-gui --export-png $@
 
+%.pdf_tex:	%.svg
+	inkscape -D -z --file=$< --export-pdf=$*.pdf --export-latex
+
 %.pdf:	%.md
 	pandoc -s $< -o $@ --pdf-engine=xelatex
 
