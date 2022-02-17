@@ -1,0 +1,15 @@
+The goal of dotfiles is to get a new working environment ASAP.
+
+One should simply clone dotfiles and run initialize.
+
+Tools:
+apt: install basic utilities
+conda: Manage different Python environments
+github: Pull additional repositories as needed
+  gh: Needed to manage Personal Authentication tokens
+
+
+Set up auto github access:
+https://github.com/settings/tokens
+gh auth login
+Generate new Personal access token and paste it
