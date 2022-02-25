@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 help = '''Construct words using the letters given.
 Uppercase letters are required.
