@@ -1,0 +1,56 @@
+conda create -n qnr -y pip qpic
+
+
+https://www.chrisatmachine.com/Miniconda/02-How-to%20use-miniconda/
+
+Managing Environments with Miniconda
+The previous article explains how to properly install and configure Miniconda. This article will explain how to manage your environments.
+
+Creating a Virtual Environment
+1
+conda create -n <myenv> python=<3.7> pip -y
+This command will create a virtual environment with the following properties:
+
+-n myenv You can choose any name you want here
+python=3.7 you can set the version to be whatever you want such as 2.7 (if you don't specify a version it will choose the latest)
+-y this just preemptively answers yes to creating the environment
+Activating a Virtual Environment
+1
+conda activate <myenv>
+Deactivating a Virtual Environment
+1
+conda deactivate <myenv>
+Listing Available Environments
+1
+conda env list
+Removing an Environment
+1
+conda remove --name <myenv> --all
+Cloning an Environment
+1
+conda create --name <myclone> --clone <myenv>
+Removing PS1 Prompt
+1
+conda config --set changeps1 false
+To re-enable:
+
+1
+conda config --set changeps1 true
+Searching for packages
+1
+conda search <package-name>
+Sharing an environment
+First export the environment
+1
+conda env export > environment.yml
+Now install in another Anaconda Environment Manager
+1
+conda env create -f environment.yml
+Installing Packages & Pinning Versions
+With conda (=)
+1
+conda install <package>=<version-number>
+With pip (==)
+1
+pip install <package>==<version-number>
+

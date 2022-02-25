@@ -39,6 +39,9 @@ dxf:	$(DXF)
 %.dxf:	%.scad
 	openscad -o $@ $<
 
+%.svg:	%.dxf
+	inkscape $< --without-gui --export-area-drawing --export-plain-svg=$@
+
 %.dvi:	%.tex
 	mkdir -p $(TEXTMP)
 	latex -halt-on-error -file-line-error -interaction=nonstopmode -output-directory=$(TEXTMP) $<
