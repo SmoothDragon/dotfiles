@@ -1,0 +1,4 @@
+
+# Conda environment
+source /opt/conda/etc/profile.d/conda.sh
+export PATH=$PATH:/opt/conda/bin
