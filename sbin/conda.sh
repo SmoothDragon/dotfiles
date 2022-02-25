@@ -21,7 +21,7 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/conda-archive-keyring.gpg] h
 sudo chmod 644 /etc/apt/sources.list.d/conda.list
 
 sudo apt update
-sudo apt install conda
+sudo apt install -y conda
 
 # Install github CLI
 source /opt/conda/etc/profile.d/conda.sh
