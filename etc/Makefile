@@ -92,9 +92,10 @@ dxf:	$(DXF)
 %.png:	%.dot
 	dot -Tpng $< -o $@
 
-%.png:	%.pdf
-	pdftoppm -png $< $*
-	mv $*-1.png $@
+# This path may not be as good as PDF -> SVG -> PNG
+# %.png:	%.pdf
+# 	pdftoppm -png $< $*
+# 	mv $*-1.png $@
 
 %.scad: %.scad.py
 	python3 $< > $@
@@ -107,6 +108,22 @@ dxf:	$(DXF)
 
 %.svg:	%.dot
 	dot -Tsvg $< -o $@
+
+%.svg:	%.pdf
+	# inkscape $< --export-plain-svg=$@
+	pdf2svg $< $@
+	# Necessary as pdf2svg does not always create valid svgs:
+	inkscape $@ --export-plain-svg=$@
+
+%.gif:	%.pdf
+	pdfcrop $<
+	convert -verbose -delay 80 -loop 0 -density 300 $*-crop.pdf $@
+	rm $*-crop.pdf
+
+# Transparent GIF
+# %.gif:	%.pdf
+# 	pdfcrop $<
+# 	convert -verbose -transparent white $< $@
 
 %.tex:	%.tikz
 	tikz2preview $< > $@
