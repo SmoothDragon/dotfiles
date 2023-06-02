@@ -18,6 +18,8 @@ def bitHash(s):
     a = 0
     for c in s:
         n = ord(c)-65
+        if n<0:
+            continue
         a |= 1 << n
     return a
 
@@ -31,7 +33,8 @@ def Letterbank(word):
 
     l = len(letters)+1  # To avoid stripping of the '\n' before comparing
 
-    wordlist = open("/usr/local/share/dict/OWL14.txt", 'r').readlines()
+    # wordlist = open("/usr/local/share/dict/OWL14.txt", 'r').readlines()
+    wordlist = open("/usr/share/dict/words", 'r').readlines()
     results = []
     for line in wordlist:
         line = line.rstrip()
@@ -61,10 +64,11 @@ def main(query):
     required = [ch for ch in query if ch.isupper()]
     optional = [ch.upper() for ch in query if ch.islower()]
     word_test = is_letterbank(required, optional)
-    with open("/usr/local/share/dict/OWL14.txt",'r') as infile:
+    # with open("/usr/local/share/dict/OWL14.txt",'r') as infile:
+    with open("/usr/share/dict/words", 'r') as infile:
         result = []
         for line in infile:
-            word = line.rstrip()
+            word = line.rstrip().upper()
             if word_test(word):
                 result.append(word)
     return result
