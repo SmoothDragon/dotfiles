@@ -152,6 +152,12 @@ dxf:	$(DXF)
 %.csv:	%.sql
 	sql2csv $< > $@
 
+%.dxf:	%.scad
+	openscad -o $@ $<
+
+%.svg:	%.dxf
+	inkscape $< --without-gui --export-area-drawing --export-plain-svg=$@
+
 clean:
 	/bin/rm -f $(AUTO)
 
