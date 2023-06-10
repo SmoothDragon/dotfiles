@@ -33,10 +33,16 @@ stl:	$(STL)
 dxf:	$(DXF)
 
 # file.ext.py creates file.ext
-%:      %.py
+%:	%.py
+	python3 $< > $@
+
+%.svg:	%.svg.py
 	python3 $< > $@
 
 %.dxf:	%.scad
+	openscad -o $@ $<
+
+%.svg:	%.scad
 	openscad -o $@ $<
 
 %.svg:	%.dxf
@@ -66,7 +72,10 @@ dxf:	$(DXF)
 	pandoc $< -f markdown --latex-engine pdflatex -o $@
 
 %.pdf:	%.svg
-	inkscape $< --without-gui --export-area-drawing --export-pdf=$@
+	rsvg-convert -f pdf -o $@ $<
+
+# %.pdf:	%.svg
+# 	inkscape $< --without-gui --export-area-drawing --export-pdf=$@
 
 %.png:	%.svg
 	inkscape $< --without-gui --export-png $@
