@@ -28,7 +28,7 @@ export HISTFILESIZE=1048576
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 #export TERM=vt100
-export PATH=~/dotfiles/bin:~/bin:~/local/bin:~/.local/bin:~/opt/bin:~/go/bin:~/.cabal/bin:~/.npm-global/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
+export PATH=~/dotfiles/bin:~/bin:~/local/bin:~/.local/bin:~/opt/bin:~/go/bin:~/.cabal/bin:~/.npm-global/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin:~/.cargo/bin
 #export CDPATH=.:~:.. ## on cd command offer dirs in home and one dir up
 
 # Programming    {{{
@@ -57,6 +57,7 @@ zstyle ':vcs_info:*' enable hg git bzr svn
 setopt COMPLETE_IN_WORD # tab complete in the middle of a word
 setopt AUTO_PUSHD
 setopt NO_BEEP # never ever beep ever
+unsetopt BEEP
     
 # share history between zsh processes    
 setopt APPEND_HISTORY
@@ -279,4 +280,24 @@ if (( ${+TMUX} )); then
     source .tmux_envrc
   fi
 fi
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/home/tom/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+    # eval "$__conda_setup"
+# else
+    # if [ -f "/home/tom/mambaforge/etc/profile.d/conda.sh" ]; then
+        # . "/home/tom/mambaforge/etc/profile.d/conda.sh"
+    # else
+        # export PATH="/home/tom/mambaforge/bin:$PATH"
+    # fi
+# fi
+# unset __conda_setup
+
+# if [ -f "/home/tom/mambaforge/etc/profile.d/mamba.sh" ]; then
+    # . "/home/tom/mambaforge/etc/profile.d/mamba.sh"
+# fi
+# <<< conda initialize <<<
 

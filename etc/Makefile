@@ -39,6 +39,11 @@ dxf:	$(DXF)
 %.svg:	%.svg.py
 	python3 $< > $@
 
+%.svg:	%.scad
+	openscad -o $@ $<
+
+
+
 %.dxf:	%.scad
 	openscad -o $@ $<
 
@@ -101,12 +106,19 @@ dxf:	$(DXF)
 %.png:	%.dot
 	dot -Tpng $< -o $@
 
+# Crop whitespace around image -- May need tweaking
+%_crop.png:	%.png
+	convert $< -border 1x1 -fuzz 15% -trim $@
+
 # This path may not be as good as PDF -> SVG -> PNG
 # %.png:	%.pdf
 # 	pdftoppm -png $< $*
 # 	mv $*-1.png $@
 
 %.scad: %.scad.py
+	python3 $< > $@
+
+%.svg: %.svg.py
 	python3 $< > $@
 
 %.stl:	%.scad
@@ -118,11 +130,11 @@ dxf:	$(DXF)
 %.svg:	%.dot
 	dot -Tsvg $< -o $@
 
-%.svg:	%.pdf
-	# inkscape $< --export-plain-svg=$@
-	pdf2svg $< $@
-	# Necessary as pdf2svg does not always create valid svgs:
-	inkscape $@ --export-plain-svg=$@
+# %.svg:	%.pdf
+# 	# inkscape $< --export-plain-svg=$@
+# 	pdf2svg $< $@
+# 	# Necessary as pdf2svg does not always create valid svgs:
+# 	inkscape $@ --export-plain-svg=$@
 
 %.gif:	%.pdf
 	pdfcrop $<

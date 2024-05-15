@@ -18,7 +18,7 @@ def bitHash(s):
     a = 0
     for c in s:
         n = ord(c)-65
-        if n<0:
+        if n < 0:
             continue
         a |= 1 << n
     return a

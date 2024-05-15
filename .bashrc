@@ -136,3 +136,7 @@ fi
 source /home/tom/.ghcup/env
 # Modify rm to run a safety check before deleting
 alias rm gad-rm
+
+# Don't beep!
+bind 'set bell-style none'
+
