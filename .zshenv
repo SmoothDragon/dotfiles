@@ -13,3 +13,4 @@
 # eval "$(pyenv virtualenv-init -)"
 #
 # fi
+. "$HOME/.cargo/env"

@@ -28,10 +28,11 @@ export HISTFILESIZE=1048576
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 #export TERM=vt100
-export PATH=~/dotfiles/bin:~/bin:~/local/bin:~/.local/bin:~/opt/bin:~/go/bin:~/.cabal/bin:~/.npm-global/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin:~/.cargo/bin
+export PATH=~/dotfiles/bin:~/bin:~/local/bin:~/.local/bin:~/.cargo/bin:~/opt/bin:~/go/bin:~/.cabal/bin:~/.npm-global/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
 #export CDPATH=.:~:.. ## on cd command offer dirs in home and one dir up
 
 # Programming    {{{
+export CARGO_TARGET_DIR=~/.cargo
 export CPATH=~/include:~/local/include: # additional include directories
 export LIBRARY_PATH=~/lib:~/local/lib: # additional library directories
 export TEXINPUTS=~/lib/tex//: # // searches subdirectories : includes defaults

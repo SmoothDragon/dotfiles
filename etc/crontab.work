@@ -1,2 +1,9 @@
+# Uncomment to get mail for error messages
+MAILTO=""
+
+* * * * * env >> /tmp/tgdrape.tmp
+
 # Try to log me out repeatedly after 5pm
-*/30 18-20 * * 1-5 /bin/bash /n/U/tdraper/dotfiles/bin/logout_check.sh
+*/30 19-21 * * 1-5 /bin/bash /n/U/tdraper/dotfiles/bin/logout_check.sh
+# */30 18-20 * * 1-5 who | grep -q tdraper && env DISPLAY=:0 /usr/bin/gnome-session-quit || true
+

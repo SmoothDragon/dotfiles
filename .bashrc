@@ -140,3 +140,5 @@ alias rm gad-rm
 # Don't beep!
 bind 'set bell-style none'
 
+# Rust
+. "$HOME/.cargo/env"

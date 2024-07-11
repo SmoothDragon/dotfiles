@@ -36,6 +36,9 @@ dxf:	$(DXF)
 %:	%.py
 	python3 $< > $@
 
+%.png:	%.svg
+	inkscape $< --without-gui --export-png $@
+
 %.svg:	%.svg.py
 	python3 $< > $@
 
@@ -60,11 +63,11 @@ dxf:	$(DXF)
 
 %.pdf:	%.tex
 	mkdir -p $(TEXTMP)
-	pdflatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
+	lualatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
 	ln -s ../$*.bib $(TEXTMP)/ || true  # Link bibtex file into directory if it exists
 	cd $(TEXTMP) && bibtex $* || true  # It is hard to know when bibtex fails
-	pdflatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
-	pdflatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
+	lualatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
+	lualatex -halt-on-error -file-line-error -interaction=errorstopmode -output-directory=$(TEXTMP) $<
 # Rerun if references are not up to date
 # ifeq ($(grep 'LaTeX Warning: .* may have changed' $*.log),)
 # 	pdflatex -interaction=nonstopmode $<
@@ -81,9 +84,6 @@ dxf:	$(DXF)
 
 # %.pdf:	%.svg
 # 	inkscape $< --without-gui --export-area-drawing --export-pdf=$@
-
-%.png:	%.svg
-	inkscape $< --without-gui --export-png $@
 
 %.pdf_tex:	%.svg
 	inkscape -D -z --file=$< --export-pdf=$*.pdf --export-latex
