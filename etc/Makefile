@@ -16,9 +16,11 @@ TEXTMP = .textmp
 PY	= $(wildcard *.py) # List all python files in directory
 MKD	= $(wildcard *.mkd)
 SVG	= $(wildcard *.svg)
+RS	= $(wildcard *.rs)
 	
 # Secondary files automatically created
 SCAD	= $(PY:.py=.scad)
+SCD	= $(scad-%.rs, %.scad, RS)
 STL	= $(SCAD:.scad=.stl)
 DXF	= $(SCAD:.scad=.dxf)
 
@@ -45,7 +47,8 @@ dxf:	$(DXF)
 %.svg:	%.scad
 	openscad -o $@ $<
 
-
+%.scad:	%-scad.rs
+	cargo run --bin $(basename $<) > $@
 
 %.dxf:	%.scad
 	openscad -o $@ $<
@@ -122,7 +125,7 @@ dxf:	$(DXF)
 	python3 $< > $@
 
 %.stl:	%.scad
-	openscad -m make -o $@ $<
+	openscad-nightly -m make -o $@ $<
 
 %.svg:	%.dvi
 	dvisvgm --font-format=woff $<

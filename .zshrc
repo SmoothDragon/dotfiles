@@ -28,7 +28,12 @@ export HISTFILESIZE=1048576
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 #export TERM=vt100
-export PATH=~/dotfiles/bin:~/bin:~/local/bin:~/.local/bin:~/.cargo/bin:~/opt/bin:~/go/bin:~/.cabal/bin:~/.npm-global/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
+export PATH=~/dotfiles/bin:~/bin:~/local/bin:~/.local/bin:~/opt/bin:$PATH:/sbin:/usr/sbin:/usr/local/sbin
+export PATH=~/.cargo/bin:$PATH  # Rust
+export PATH=$PATH:~/.npm-global/bin  # Javascript
+export PATH=$PATH:~/go/bin  # Go
+export PATH=$PATH:~/.cabal/bin  # Haskell
+export PATH=$PATH:/usr/brlcad/bin  # BRL-CAD
 #export CDPATH=.:~:.. ## on cd command offer dirs in home and one dir up
 
 # Programming    {{{
@@ -80,6 +85,10 @@ zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
 zstyle ':completion:*' group-name ''    
+
+zstyle ':completion::complete:prusa-slicer:*' ignored-patterns '^(*.(stl|step))'
+zstyle ':completion::complete:openscad:*' ignored-patterns '^(*.scad)'
+zstyle ':completion::complete:evince:*' ignored-patterns '^(*.pdf)'
 
 # }}}
 # Alias {{{
