@@ -1,0 +1,11 @@
+#!/bin/bash
+# rgrep - recursive "grep"
+
+if [$# -ne 1 ]
+then
+  echo "usage: rgrep <pattern>"
+  exit 1
+fi
+
+find . -type f -print0 | xargs -0 grep -I "$1"
+
