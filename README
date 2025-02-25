@@ -9,7 +9,11 @@ github: Pull additional repositories as needed
   gh: Needed to manage Personal Authentication tokens
 
 
+
 Set up auto github access:
 https://github.com/settings/tokens
 gh auth login
 Generate new Personal access token and paste it
+
+For tmake:
+apt install librsvg3-bin latexmk texlive texlive-luatex texlive-pictures texlive-games texlive-latex-extra

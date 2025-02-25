@@ -87,9 +87,12 @@ zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
 zstyle ':completion:*' group-name ''    
 
 zstyle ':completion::complete:prusa-slicer:*' ignored-patterns '^(*.(stl|step))'
-zstyle ':completion::complete:openscad:*' ignored-patterns '^(*.scad)'
 zstyle ':completion::complete:evince:*' ignored-patterns '^(*.pdf)'
-
+zstyle ':completion::complete:openscad:*' ignored-patterns '^(*.scad)'
+zstyle ':completion::complete:openscad-nightly:*' file-patterns '
+  *(D-/):local-directories:"local directory" 
+  *.(scad)(D-^/):media-files:"media file"
+'
 # }}}
 # Alias {{{
 #unalias -a # Remove all previous aliases
@@ -283,31 +286,34 @@ fi
 #
 
 # Only executes if new shell is in a TMUX session
+# if (( ${+TMUX} )); then
+  # .tmux_envrc should set environment variables for all interactive shells
+  # if [[ -a .tmux_envrc ]]; then
+    # echo "Activitating local .tmux_envrc"
+    # source .tmux_envrc
+  # fi
+# fi
+
+
+# Only executes if new shell is in a TMUX session
 if (( ${+TMUX} )); then
   # .tmux_envrc should set environment variables for all interactive shells
-  if [[ -a .tmux_envrc ]]; then
-    echo "Activitating local .tmux_envrc"
-    source .tmux_envrc
-  fi
+  file_name=".tmux_envrc"
+  current_dir="."
+
+  while true; do
+    if [ -e "$current_dir/$file_name" ]; then
+      echo "Activitating local .tmux_envrc"
+      source "$current_dir/$file_name"
+      break
+    fi
+
+    if [[ "$current_dir" == "/" ]]; then
+      echo "File '$file_name' not found in parent directories."
+      break
+    fi
+
+    current_dir="../$current_dir"
+  done
 fi
-
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/home/tom/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-    # eval "$__conda_setup"
-# else
-    # if [ -f "/home/tom/mambaforge/etc/profile.d/conda.sh" ]; then
-        # . "/home/tom/mambaforge/etc/profile.d/conda.sh"
-    # else
-        # export PATH="/home/tom/mambaforge/bin:$PATH"
-    # fi
-# fi
-# unset __conda_setup
-
-# if [ -f "/home/tom/mambaforge/etc/profile.d/mamba.sh" ]; then
-    # . "/home/tom/mambaforge/etc/profile.d/mamba.sh"
-# fi
-# <<< conda initialize <<<
 

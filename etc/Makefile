@@ -127,6 +127,9 @@ dxf:	$(DXF)
 %.stl:	%.scad
 	openscad-nightly -m make -o $@ $<
 
+%.stl2:	%.scad
+	openscad-nightly --enable=fast-csg -m make -o $@ $<
+
 %.svg:	%.dvi
 	dvisvgm --font-format=woff $<
 
